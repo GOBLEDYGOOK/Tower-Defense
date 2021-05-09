@@ -47,6 +47,8 @@ sf::Vector2i Tower::retTowerPos() const
 	return this->towerPos;
 }
 
+
+
 //public functions
 void Tower::levelUp()
 {

@@ -33,7 +33,7 @@ public:
 	sf::Vector2i retTowerPos() const;
 
 	//public functions
-	virtual void upgrade();
+	virtual void upgrade() = 0;
 	void levelUp();
 };
 
