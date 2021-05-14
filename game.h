@@ -4,6 +4,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include "startMenu.h"
+#include "map.h"
 #include <iostream>
 
 /*
@@ -15,13 +16,19 @@ class Game
 	//Private variables
 	sf::RenderWindow* window;
 	StartMenu* startMenu;
+	Map* map;
 	sf::VideoMode videoMode;
 	sf::Event ev;
+	sf::Text t;
+	sf::Font f;
+	bool isGameStarted;
+	bool tmp;
 	
 	//Private functions
 	void initVariables();
 	void initWindow();
 	void initMenu();
+	void initMap();
 public:
 	//Consturctors /Destructors
 	Game();
@@ -31,8 +38,9 @@ public:
 	const bool getWindowIsOpen() const;
 
 	//Functions
-	void pollEvents();
-	void keyPressed();
+	void pollEventsMenu();
+	void pollEventsGame();
+	void keyPressedMenu();
 	void update();
 	void render();
 };
