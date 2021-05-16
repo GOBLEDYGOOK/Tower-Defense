@@ -9,31 +9,41 @@
 */
 
 class Tower{
+
 	//Private variables
-	int level = 1;
 	static const int maxLevel = 3;
+	sf::Sprite towerSprite;
+	sf::Texture towerTexture;
+	sf::Vector2i towerPos;
+	sf::Vector2i rangePos;
+	sf::CircleShape range;
+	int level;
 	int dmg;
 	int cost;
-	int range;
-	sf::Sprite texture;
-	sf::Vector2i towerPos;
 
+	//Private functions
+	void initVariables(int cost, int dmg);
+	void initTexture(std::string path);
+	void initRange(int radius);
 public:
 	//Constructors /Destructors
-	Tower();
+	Tower(int radius, std::string path, int cost, int dmg);
 	virtual ~Tower();
 
 	//Accessors
-	int retDmg() const;
-	int retCost() const;
-	int retRange() const;
-	int retLevel() const;
-	int retMaxLevel() const;
-	sf::Sprite retTexture() const;
-	sf::Vector2i retTowerPos() const;
+
+	virtual int retMaxLevel() const;
+	virtual int getDmg() const;
+	virtual int getCost() const;
+	virtual sf::CircleShape getRange() const;
+	virtual int getLevel() const;
+	virtual sf::Sprite getSprite() const;
+	virtual sf::Vector2i getTowerPos() const;
+	virtual sf::Texture getTexture()const;
 
 	//public functions
+	virtual void setPosition(sf::Vector2f position);
 	virtual void upgrade() = 0;
-	void levelUp();
+	virtual void levelUp() = 0;
 };
 

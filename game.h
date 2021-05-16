@@ -5,6 +5,7 @@
 #include <SFML/Audio.hpp>
 #include "startMenu.h"
 #include "map.h"
+#include "shop.h"
 #include <iostream>
 
 /*
@@ -17,6 +18,8 @@ class Game
 	sf::RenderWindow* window;
 	StartMenu* startMenu;
 	Map* map;
+	Shop *shop;
+	sf::Vector2f mousePositionFloat;
 	sf::VideoMode videoMode;
 	sf::Event ev;
 	sf::Text t;
@@ -29,6 +32,7 @@ class Game
 	void initWindow();
 	void initMenu();
 	void initMap();
+	void initShop();
 public:
 	//Consturctors /Destructors
 	Game();

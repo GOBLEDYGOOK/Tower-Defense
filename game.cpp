@@ -7,6 +7,7 @@ void Game::initVariables()
 	this->window = nullptr;
 	this->startMenu = nullptr;
 	this->map = nullptr;
+	this->shop = nullptr;
 	this->isGameStarted = false;
 	tmp = false;
 	
@@ -21,7 +22,7 @@ void Game::initWindow()
 	this->videoMode.height = 900;
 	this->videoMode.width = 1260;
 	this->window = new sf::RenderWindow(this->videoMode, "Tower Defense", sf::Style::Titlebar | sf::Style::Close);
-	this->window->setFramerateLimit(0);
+	this->window->setFramerateLimit(200);
 }
 
 void Game::initMenu()
@@ -34,6 +35,11 @@ void Game::initMap()
 	this->map = new Map(this->videoMode);
 }
 
+void Game::initShop()
+{
+	this->shop = new Shop();
+}
+
 //Constructor
 Game::Game()
 {
@@ -41,6 +47,7 @@ Game::Game()
 	this->initWindow();
 	this->initMenu();
 	this->initMap();
+	this->initShop();
 }
 
 //Destructor
@@ -49,6 +56,7 @@ Game::~Game()
 	delete this->window;
 	delete this->startMenu;
 	delete this->map;
+	delete this->shop;
 }
 
 
@@ -94,7 +102,7 @@ void Game::pollEventsGame()
 
 		case sf::Event::MouseButtonPressed:
 			if (this->ev.key.code == sf::Mouse::Left) {
-				std::cout << "lewy" << std::endl;
+				this->shop->shopClicked(*this->window);
 			}
 			break;
 		case sf::Event::MouseMoved:
@@ -157,6 +165,7 @@ void Game::update()
 void Game::render()
 {
 	this->window->clear();
+	this->mousePositionFloat = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*this->window));
 	//Draw game objects
 	if (!this->isGameStarted) {
 		this->startMenu->draw(*this->window);
@@ -165,11 +174,11 @@ void Game::render()
 		this->map->draw(*this->window);
 		
 	}
-	sf::Mouse mouse;
+	
 	if (tmp) {
 		//std::cout << "i co tera" << std::endl;
 		
-		t.setPosition(mouse.getPosition(*this->window).x, mouse.getPosition(*this->window).y);
+		t.setPosition(this->mousePositionFloat.x, this->mousePositionFloat.y);
 		this->window->draw(t);
 		
 		
@@ -177,9 +186,20 @@ void Game::render()
 		
 	}
 	
-	if ((mouse.getPosition(*this->window).x < 90 || mouse.getPosition(*this->window).x > 180) || (mouse.getPosition(*this->window).y < 90 || mouse.getPosition(*this->window).y > 180)) {
+	if ((this->mousePositionFloat.x < 90 || this->mousePositionFloat.x > 180) || (this->mousePositionFloat.y < 90 || this->mousePositionFloat.y > 180)) {
 		tmp = false;
 
 	}
+	if (this->shop->getIsClicked(0)) {
+		
+		this->shop->getShopTowers().getTower(0)->setPosition(sf::Vector2f(this->mousePositionFloat.x - 45.0f, this->mousePositionFloat.y - 45.0f));
+		this->window->draw(this->shop->getMapGridSprite());
+		this->window->draw(this->shop->getShopTowers().getTower(0)->getSprite());
+		this->window->draw(this->shop->getShopTowers().getTower(0)->getRange());
+		std::cout << "dupcia" << std::endl;
+	}
+	
+	
+	this->shop->draw(*this->window);
 	this->window->display();
 }
