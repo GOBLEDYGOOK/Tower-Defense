@@ -1,11 +1,13 @@
 #pragma once
 
 #include "shopTowers.h"
+#include "map.h"
 
 class Shop : public ShopTowers{
 	//Private functions
 	int totalGold;
 	ShopTowers shopTowers;
+	Map map;
 	sf::Texture mapGridTexture;
 	sf::Sprite mapGrid;
 
@@ -17,11 +19,14 @@ public:
 	Shop();
 	virtual ~Shop();
 
-	//Public functions
-	void draw(sf::RenderWindow& window);
-	void shopClicked(sf::RenderWindow &window);
 	//Accessors
 	ShopTowers getShopTowers() const;
 	sf::Sprite getMapGridSprite()const;
+
+	//Public functions
+	void draw(sf::RenderWindow& window);
+	void drawClickedTower(sf::RenderWindow& window);
+	void shopClicked(sf::RenderWindow &window);
+	void buy();
 };
 

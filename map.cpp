@@ -21,6 +21,11 @@ void Map::initVariables(sf::VideoMode videoMode)
 	enemy.setPosition(270.0f, -90.0f);
 }
 
+void Map::initMap()
+{
+	
+}
+
 //Public functions
 void Map::draw(sf::RenderWindow& window)
 {

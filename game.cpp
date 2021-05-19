@@ -190,16 +190,9 @@ void Game::render()
 		tmp = false;
 
 	}
-	if (this->shop->getIsClicked(0)) {
-		
-		this->shop->getShopTowers().getTower(0)->setPosition(sf::Vector2f(this->mousePositionFloat.x - 45.0f, this->mousePositionFloat.y - 45.0f));
-		this->window->draw(this->shop->getMapGridSprite());
-		this->window->draw(this->shop->getShopTowers().getTower(0)->getSprite());
-		this->window->draw(this->shop->getShopTowers().getTower(0)->getRange());
-		std::cout << "dupcia" << std::endl;
-	}
 	
 	
+	this->shop->drawClickedTower(*this->window);
 	this->shop->draw(*this->window);
 	this->window->display();
 }

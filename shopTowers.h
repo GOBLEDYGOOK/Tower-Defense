@@ -5,6 +5,7 @@
 /*
 	class 
 */
+
 class ShopTowers
 {
 	//Private variables
@@ -14,7 +15,7 @@ class ShopTowers
 	sf::Texture textureTowers[numberOfTowers];
 	sf::Sprite spriteTowers[numberOfTowers];
 	Tower* towers[numberOfTowers];
-	bool isClicked[numberOfTowers];
+	int isClicked;
 
 	//Private functions
 	void initVariables();
@@ -27,10 +28,10 @@ public:
 	sf::Sprite getSpriteTower(size_t i) const;
 	int getCost(size_t i) const;
 	Tower* getTower(size_t i) const;
-	bool getIsClicked(size_t i);
+	int getIsClicked() const;
 	const int getNumberOfTowers() const;
 	
 	//Public functions
-	void changeIsClicked(size_t i);
+	void changeIsClicked(int i);
 };
 

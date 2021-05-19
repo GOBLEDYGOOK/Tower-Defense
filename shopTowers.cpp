@@ -13,12 +13,13 @@ ShopTowers::~ShopTowers()
 //Private functions
 void ShopTowers::initVariables()
 {
+	this->isClicked = -1;
 	this->towers[0] = new TowerBasic();
 	this->costs[0] = this->towers[0]->getCost();
 	this->textureTowers[0] = this->towers[0]->getTexture();
 	this->spriteTowers[0].setPosition(1020, 330);
 	this->spriteTowers[0].setTexture(this->textureTowers[0]);
-	this->isClicked[0] = false;
+	
 }
 
 
@@ -44,14 +45,15 @@ const int ShopTowers::getNumberOfTowers() const
 	return this->numberOfTowers;
 }
 
-bool ShopTowers::getIsClicked(size_t i)
+int ShopTowers::getIsClicked() const
 {
-	return isClicked[0];
+	return this->isClicked;
 }
 
 
 //Public functions
-void ShopTowers::changeIsClicked(size_t i)
+void ShopTowers::changeIsClicked(int i)
 {
-	isClicked[0] = true;
+	this->isClicked = i;
+	
 }
