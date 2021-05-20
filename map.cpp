@@ -6,6 +6,11 @@ Map::Map(sf::VideoMode videoMode)
 	this->initVariables(videoMode);
 }
 
+Map::Map()
+{
+	;
+}
+
 Map::~Map()
 {
 }

@@ -2,12 +2,16 @@
 
 #include "shopTowers.h"
 #include "map.h"
+#include "mapTiles.h"
 
 class Shop : public ShopTowers{
-	//Private functions
+	//Private variables
+	//here will be a vector of towers
 	int totalGold;
 	ShopTowers shopTowers;
 	Map map;
+	MapTiles mapTiles;
+	sf::RenderWindow* window;
 	sf::Texture mapGridTexture;
 	sf::Sprite mapGrid;
 
@@ -16,6 +20,7 @@ class Shop : public ShopTowers{
 
 public:
 	//Constructors /Destructors
+	Shop(sf::RenderWindow& window);
 	Shop();
 	virtual ~Shop();
 
@@ -24,9 +29,9 @@ public:
 	sf::Sprite getMapGridSprite()const;
 
 	//Public functions
-	void draw(sf::RenderWindow& window);
-	void drawClickedTower(sf::RenderWindow& window);
-	void shopClicked(sf::RenderWindow &window);
+	void draw();
+	void drawClickedTower();
+	void shopClicked();
 	void buy();
 };
 

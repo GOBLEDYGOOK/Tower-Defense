@@ -37,7 +37,7 @@ void Game::initMap()
 
 void Game::initShop()
 {
-	this->shop = new Shop();
+	this->shop = new Shop(*this->window);
 }
 
 //Constructor
@@ -102,7 +102,11 @@ void Game::pollEventsGame()
 
 		case sf::Event::MouseButtonPressed:
 			if (this->ev.key.code == sf::Mouse::Left) {
-				this->shop->shopClicked(*this->window);
+				if (this->shop->getIsClicked() != -1) {
+					this->shop->buy();
+				}
+				this->shop->shopClicked();
+				
 			}
 			break;
 		case sf::Event::MouseMoved:
@@ -190,9 +194,7 @@ void Game::render()
 		tmp = false;
 
 	}
-	
-	
-	this->shop->drawClickedTower(*this->window);
-	this->shop->draw(*this->window);
+	this->shop->drawClickedTower();
+	this->shop->draw();
 	this->window->display();
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "mapTiles.h"
 #include <iostream>
 #include <cmath>
 #include <map>
@@ -9,7 +10,6 @@ class Map{
 	sf::Sprite map;
 	sf::VideoMode videoMode;
 	sf::Texture mapTexture;
-	int **isValid;
 	
 	sf::Texture enemyT;
 	sf::Sprite enemy;
@@ -20,6 +20,7 @@ class Map{
 public:
 	//Constructors /Destructors
 	Map(sf::VideoMode videoMode);
+	Map();
 	~Map();
 
 	//Accessors
