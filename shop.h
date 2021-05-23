@@ -3,24 +3,27 @@
 #include "shopTowers.h"
 #include "map.h"
 #include "mapTiles.h"
+#include "towerContainer.h"
 
 class Shop : public ShopTowers{
+
 	//Private variables
-	//here will be a vector of towers
+	TowerContainer* towerContainer;
 	int totalGold;
 	ShopTowers shopTowers;
 	Map map;
 	MapTiles mapTiles;
+	sf::Text goldLabel;
 	sf::RenderWindow* window;
 	sf::Texture mapGridTexture;
 	sf::Sprite mapGrid;
 
 	//Private functions
 	void initVariables();
-
+	void initGoldLabel();
 public:
 	//Constructors /Destructors
-	Shop(sf::RenderWindow& window);
+	Shop(sf::RenderWindow& window, TowerContainer & towerContainer);
 	Shop();
 	virtual ~Shop();
 

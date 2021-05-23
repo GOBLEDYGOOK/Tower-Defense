@@ -6,6 +6,7 @@
 #include "startMenu.h"
 #include "map.h"
 #include "shop.h"
+#include "towerContainer.h"
 #include <iostream>
 
 /*
@@ -19,20 +20,26 @@ class Game
 	StartMenu* startMenu;
 	Map* map;
 	Shop *shop;
+	TowerContainer* towerContainer;
 	sf::Vector2f mousePositionFloat;
 	sf::VideoMode videoMode;
 	sf::Event ev;
 	sf::Text t;
 	sf::Font f;
 	bool isGameStarted;
+	bool isGamePaused;
 	bool tmp;
 	
+	sf::Texture enemyT;
+	sf::Sprite enemy;
+
 	//Private functions
 	void initVariables();
 	void initWindow();
 	void initMenu();
 	void initMap();
 	void initShop();
+	void initTowerContainer();
 public:
 	//Consturctors /Destructors
 	Game();

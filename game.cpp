@@ -9,12 +9,16 @@ void Game::initVariables()
 	this->map = nullptr;
 	this->shop = nullptr;
 	this->isGameStarted = false;
+	this->isGamePaused = false;
+	this->towerContainer = nullptr;
 	tmp = false;
 	
 	f.loadFromFile("arial.ttf");
 	t.setString("wow co tu sie wyswietla");
 	t.setFont(f);
 	t.setCharacterSize(30);
+
+	enemy.setPosition(270.0f, -90.0f);
 }
 
 void Game::initWindow()
@@ -37,7 +41,12 @@ void Game::initMap()
 
 void Game::initShop()
 {
-	this->shop = new Shop(*this->window);
+	this->shop = new Shop(*this->window, *this->towerContainer);
+}
+
+void Game::initTowerContainer()
+{
+	this->towerContainer = new TowerContainer();
 }
 
 //Constructor
@@ -47,6 +56,7 @@ Game::Game()
 	this->initWindow();
 	this->initMenu();
 	this->initMap();
+	this->initTowerContainer();
 	this->initShop();
 }
 
@@ -57,6 +67,7 @@ Game::~Game()
 	delete this->startMenu;
 	delete this->map;
 	delete this->shop;
+	delete this->towerContainer;
 }
 
 
@@ -106,16 +117,23 @@ void Game::pollEventsGame()
 					this->shop->buy();
 				}
 				this->shop->shopClicked();
-				
+
 			}
 			break;
 		case sf::Event::MouseMoved:
-			
-			if((mouse.getPosition(*this->window).x > 90 && mouse.getPosition(*this->window).x < 180) && (mouse.getPosition(*this->window).y>90 && mouse.getPosition(*this->window).y < 180)) {
+
+			if ((mouse.getPosition(*this->window).x > 90 && mouse.getPosition(*this->window).x < 180) && (mouse.getPosition(*this->window).y > 90 && mouse.getPosition(*this->window).y < 180)) {
 				tmp = true;
-				
+
 			}
 			//std::cout << mouse.getPosition(*this->window).x << " " << mouse.getPosition(*this->window).y << std::endl;
+			break;
+		case sf::Event::KeyPressed:
+			if (ev.key.code == sf::Keyboard::Space) {
+			std::cout << "sopacja" << std::endl;
+			if (!this->isGamePaused) this->isGamePaused = true;
+			else this->isGamePaused = false;
+		}
 			break;
 		}
 	}
@@ -171,30 +189,58 @@ void Game::render()
 	this->window->clear();
 	this->mousePositionFloat = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*this->window));
 	//Draw game objects
+	
 	if (!this->isGameStarted) {
 		this->startMenu->draw(*this->window);
-	}
-	else {
-		this->map->draw(*this->window);
-		
-	}
-	
-	if (tmp) {
-		//std::cout << "i co tera" << std::endl;
-		
-		t.setPosition(this->mousePositionFloat.x, this->mousePositionFloat.y);
-		this->window->draw(t);
-		
-		
-		
-		
-	}
-	
-	if ((this->mousePositionFloat.x < 90 || this->mousePositionFloat.x > 180) || (this->mousePositionFloat.y < 90 || this->mousePositionFloat.y > 180)) {
-		tmp = false;
 
 	}
-	this->shop->drawClickedTower();
-	this->shop->draw();
+	else {
+
+		this->map->draw(*this->window);
+		sf::CircleShape circle;
+		circle.setRadius(180);
+		circle.setOutlineColor(sf::Color::Color(0, 0, 255, 100));
+		circle.setOutlineThickness(3);
+
+		circle.setFillColor(sf::Color::Color(0, 0, 255, 50));
+
+	
+
+		int tmp2 = circle.getRadius();
+
+		circle.setPosition(enemy.getPosition().x - circle.getRadius() / 2 - 45, enemy.getPosition().y - circle.getRadius() / 2 - 45); //Ustawienie range wzgledem wiezy
+	
+		
+
+		enemyT.loadFromFile("enemyFast.png");
+		enemy.setTexture(enemyT);
+
+
+
+		//std::cout << enemy.getGlobalBounds().left<< " " << enemy.getGlobalBounds().width << std::endl;
+		window->draw(enemy);
+
+		window->draw(circle);
+	
+		float dx = (enemy.getPosition().x + (enemy.getGlobalBounds().width / 2)) - (circle.getPosition().x + (circle.getGlobalBounds().width / 2));
+		float dy = (enemy.getPosition().y + (enemy.getGlobalBounds().height / 2)) - (circle.getPosition().y + (circle.getGlobalBounds().height / 2));
+		float d = std::sqrt(dx * dx + dy * dy);
+		if (d <= ((enemy.getGlobalBounds().width / 2) + circle.getGlobalBounds().width / 2)) {
+
+			//std::cout << "dupa" << std::endl;
+		}
+
+		this->towerContainer->draw(*this->window);
+		this->shop->drawClickedTower();
+		this->shop->draw();
+	}
+	if (!this->isGamePaused && this->isGameStarted) {
+		if (enemy.getPosition().y >= 270.0f)enemy.setPosition(enemy.getPosition().x + 1.0f, enemy.getPosition().y);
+		else
+			enemy.setPosition(enemy.getPosition().x, enemy.getPosition().y + 1.0f);
+		
+		
+	}
+	
 	this->window->display();
 }

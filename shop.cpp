@@ -1,10 +1,11 @@
 #include "shop.h"
 
 //Constructor
-Shop::Shop(sf::RenderWindow& window)
+Shop::Shop(sf::RenderWindow& window, TowerContainer & towerContainer)
 {
 	this->initVariables();
 	this->window = &window;
+	this->towerContainer = &towerContainer;
 }
 
 Shop::Shop()
@@ -15,16 +16,28 @@ Shop::Shop()
 //Destructor
 Shop::~Shop()
 {
-	delete this->window;
 }
 
 //Private functions
 void Shop::initVariables()
 {
 	this->window = nullptr;
-	this->totalGold = 100;
+	this->towerContainer = nullptr;
+	this->totalGold = 1000;
 	this->mapGridTexture.loadFromFile("mapGrid1.png");
 	this->mapGrid.setTexture(this->mapGridTexture);
+	this->initGoldLabel();
+}
+
+void Shop::initGoldLabel()
+{
+	this->goldLabel.setFont(getFont());
+	this->goldLabel.setFillColor(sf::Color::Yellow);
+	this->goldLabel.setOutlineColor(sf::Color::Black);
+	this->goldLabel.setOutlineThickness(2);
+	this->goldLabel.setCharacterSize(30);
+	this->goldLabel.setString("$" + std::to_string(this->totalGold));
+	this->goldLabel.setPosition(sf::Vector2f(1020.0f, 20.0f));
 }
 
 //Accessors
@@ -42,6 +55,9 @@ sf::Sprite Shop::getMapGridSprite()const
 void Shop::draw()
 {
 	this->window->draw(this->shopTowers.getSpriteTower(0));
+	this->window->draw(this->shopTowers.getOutlines(0));
+	this->window->draw(this->shopTowers.getLabel(0));
+	this->window->draw(this->goldLabel);
 }
 
 void Shop::drawClickedTower()
@@ -53,6 +69,7 @@ void Shop::drawClickedTower()
 		this->window->draw(this->getMapGridSprite());
 		this->window->draw(this->getShopTowers().getTower(0)->getSprite());
 		this->window->draw(this->getShopTowers().getTower(0)->getRange());
+		
 	}
 
 }
@@ -77,8 +94,10 @@ void Shop::buy()
 	sf::Vector2f mousePositionFloat = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*this->window));
 	if (this->mapTiles.isValid(*this->window, mousePositionFloat)) {
 		this->totalGold -= getCost(getIsClicked());
-		//add to vector of towers, arguments - mouseposition, tower, 
-		std::cout << totalGold << std::endl;
+
+		this->goldLabel.setString("$" + std::to_string(this->totalGold));
+
+		this->towerContainer->add(mousePositionFloat, getIsClicked());				//Add to container of towers
 		changeIsClicked(-1);
-	}else std::cout << "Tu tego nie postawisz cieciu" << std::endl;
+	}
 }

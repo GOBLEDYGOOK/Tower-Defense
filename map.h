@@ -11,8 +11,7 @@ class Map{
 	sf::VideoMode videoMode;
 	sf::Texture mapTexture;
 	
-	sf::Texture enemyT;
-	sf::Sprite enemy;
+	
 
 	//Private functions
 	void initVariables(sf::VideoMode videoMode);

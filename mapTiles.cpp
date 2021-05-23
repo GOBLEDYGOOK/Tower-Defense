@@ -48,6 +48,7 @@ bool MapTiles::isValid(sf::RenderWindow & window, sf::Vector2f mousePositionFloa
 	int y = mousePositionFloat.y / tileSize;
 
 	if (this->mapTiles[x + (y*this->width)] == 1) {
+		this->mapTiles[x + (y*this->width)] = 0;
 		return true;								//Tower can be placed, return true
 	}
 	else return false;								//Tower can't be placed, return false
