@@ -17,8 +17,10 @@ void Game::initVariables()
 	t.setString("wow co tu sie wyswietla");
 	t.setFont(f);
 	t.setCharacterSize(30);
-
+	enemyT.loadFromFile("enemyFast.png");
+	enemy.setTexture(enemyT);
 	enemy.setPosition(270.0f, -90.0f);
+	direction = 0;
 }
 
 void Game::initWindow()
@@ -180,6 +182,35 @@ void Game::update()
 	else {
 		
 		this->pollEventsGame();
+		float speed = 1.0f;
+		if (!this->isGamePaused && this->isGameStarted) {
+			direction = mapTiles.chooseDirection(*this->window, enemy.getPosition(), direction);
+			switch (direction) {
+			case 0:
+				enemy.move(0, speed);
+				break;
+			case 1:
+				enemy.move(speed, 0);
+				break;
+			case 2:
+				enemy.move(-speed, 0);
+				break;
+			case 3:
+				enemy.move(0, -speed);
+				break;
+			}
+
+
+			/*
+				move down enemy.move(0,speed)
+				move right enemy.move(speed,0)
+				move left enemy.move(-speed,0)
+				move up enemy.move(0,-speed)
+
+			*/
+
+
+		}
 	}
 	
 }
@@ -197,50 +228,33 @@ void Game::render()
 	else {
 
 		this->map->draw(*this->window);
-		sf::CircleShape circle;
-		circle.setRadius(180);
-		circle.setOutlineColor(sf::Color::Color(0, 0, 255, 100));
-		circle.setOutlineThickness(3);
-
-		circle.setFillColor(sf::Color::Color(0, 0, 255, 50));
-
-	
-
-		int tmp2 = circle.getRadius();
-
-		circle.setPosition(enemy.getPosition().x - circle.getRadius() / 2 - 45, enemy.getPosition().y - circle.getRadius() / 2 - 45); //Ustawienie range wzgledem wiezy
-	
 		
 
-		enemyT.loadFromFile("enemyFast.png");
-		enemy.setTexture(enemyT);
+		
 
-
+		//circle.setPosition(enemy.getPosition().x - circle.getRadius() / 2 - 45, enemy.getPosition().y - circle.getRadius() / 2 - 45); Ustawienie range wzgledem wiezy
+	
+	
+		
 
 		//std::cout << enemy.getGlobalBounds().left<< " " << enemy.getGlobalBounds().width << std::endl;
 		window->draw(enemy);
 
-		window->draw(circle);
+		
 	
-		float dx = (enemy.getPosition().x + (enemy.getGlobalBounds().width / 2)) - (circle.getPosition().x + (circle.getGlobalBounds().width / 2));
+		/*float dx = (enemy.getPosition().x + (enemy.getGlobalBounds().width / 2)) - (circle.getPosition().x + (circle.getGlobalBounds().width / 2));
 		float dy = (enemy.getPosition().y + (enemy.getGlobalBounds().height / 2)) - (circle.getPosition().y + (circle.getGlobalBounds().height / 2));
 		float d = std::sqrt(dx * dx + dy * dy);
 		if (d <= ((enemy.getGlobalBounds().width / 2) + circle.getGlobalBounds().width / 2)) {
 
 			//std::cout << "dupa" << std::endl;
-		}
+		}*/
 
 		this->towerContainer->draw(*this->window);
 		this->shop->drawClickedTower();
 		this->shop->draw();
 	}
-	if (!this->isGamePaused && this->isGameStarted) {
-		if (enemy.getPosition().y >= 270.0f)enemy.setPosition(enemy.getPosition().x + 1.0f, enemy.getPosition().y);
-		else
-			enemy.setPosition(enemy.getPosition().x, enemy.getPosition().y + 1.0f);
-		
-		
-	}
+	
 	
 	this->window->display();
 }

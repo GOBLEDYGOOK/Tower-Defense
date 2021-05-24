@@ -4,6 +4,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include "startMenu.h"
+#include "mapTiles.h"
 #include "map.h"
 #include "shop.h"
 #include "towerContainer.h"
@@ -20,6 +21,8 @@ class Game
 	StartMenu* startMenu;
 	Map* map;
 	Shop *shop;
+	MapTiles mapTiles; //tmp
+	int direction; //tmp
 	TowerContainer* towerContainer;
 	sf::Vector2f mousePositionFloat;
 	sf::VideoMode videoMode;

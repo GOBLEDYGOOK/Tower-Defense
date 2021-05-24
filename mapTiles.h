@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
+#include <iostream>
 class MapTiles
 {
 	//Private variables
@@ -18,10 +18,10 @@ public:
 	~MapTiles();
 
 	//Accessors
-
-
+	size_t getHeight()const;
+	size_t getWidth()const;
 	//Public functions
 	bool isValid(sf::RenderWindow& window, sf::Vector2f mousePositionFloat);
-	//function which takes window, mouseposition ,
+	int chooseDirection(sf::RenderWindow& window, sf::Vector2f enemyPos, int previousDirection);
 };
 
