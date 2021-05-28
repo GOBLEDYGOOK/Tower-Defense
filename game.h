@@ -8,6 +8,7 @@
 #include "map.h"
 #include "shop.h"
 #include "towerContainer.h"
+#include "enemy.h"
 #include <iostream>
 
 /*
@@ -32,9 +33,7 @@ class Game
 	bool isGameStarted;
 	bool isGamePaused;
 	bool tmp;
-	
-	sf::Texture enemyT;
-	sf::Sprite enemy;
+	Enemy* enemy;
 
 	//Private functions
 	void initVariables();
@@ -43,6 +42,7 @@ class Game
 	void initMap();
 	void initShop();
 	void initTowerContainer();
+	void initEnemy();
 public:
 	//Consturctors /Destructors
 	Game();

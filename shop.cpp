@@ -67,8 +67,8 @@ void Shop::drawClickedTower()
 	case 0:
 		this->getShopTowers().getTower(0)->setPosition(sf::Vector2f(mousePositionFloat.x - 45.0f, mousePositionFloat.y - 45.0f));
 		this->window->draw(this->getMapGridSprite());
-		this->window->draw(this->getShopTowers().getTower(0)->getSprite());
 		this->window->draw(this->getShopTowers().getTower(0)->getRange());
+		this->window->draw(this->getShopTowers().getTower(0)->getSprite());
 		
 	}
 

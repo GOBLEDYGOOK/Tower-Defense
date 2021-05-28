@@ -3,9 +3,10 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
-
+#include "hpBar.h"
+#include "mapTiles.h"
 /*
-	Abstract class of enemy
+	Class of enemy
 */
 class Enemy{
 	//Private variables
@@ -13,14 +14,19 @@ class Enemy{
 	int hp;
 	int gold;
 	int damage;
+	int direction;
 	float velocity;
-	sf::Sprite texture;
-	sf::Vector2i enemyPos;
+	sf::Sprite enemySprite;
+	sf::Texture enemyTexture;
+	MapTiles mapTiles;
+	HpBar *hpBar;
 
+	//Private functions
+	void initVariables(std::string path, int gold, int hp, int dmg, float velocity);
 public:
 
 	//Consturctors /Destructors
-	Enemy();
+	Enemy(std::string path, int gold, int hp, int dmg, float velocity);
 	virtual ~Enemy();
 
 	//Accessors
@@ -28,12 +34,14 @@ public:
 	int getHp() const;
 	int getGold() const;
 	int getDamage() const;
+	int getDirection() const;
 	float getVelocity() const;
-	sf::Vector2i getEnemyPos() const;
-	sf::Sprite getTexture() const;
+	sf::Sprite getEnemySprite() const;
+	HpBar getHpBar() const;
 
 	//public functions
-	void receiveDamage(int dmg);
-
+	int receiveDamage(int dmg);
+	void update(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window);
 };
 
