@@ -11,6 +11,7 @@
 class Enemy{
 	//Private variables
 	bool isDead;
+	bool isStarted;
 	int hp;
 	int gold;
 	int damage;
@@ -31,6 +32,7 @@ public:
 
 	//Accessors
 	bool getIsDead() const;
+	bool getIsStarted() const;
 	int getHp() const;
 	int getGold() const;
 	int getDamage() const;
@@ -40,6 +42,7 @@ public:
 	HpBar getHpBar() const;
 
 	//public functions
+	void startEnemy();
 	int receiveDamage(int dmg);
 	void update(sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);

@@ -33,6 +33,11 @@ bool Enemy::getIsDead() const
 	return this->isDead;
 }
 
+bool Enemy::getIsStarted() const
+{
+	return this->isStarted;
+}
+
 int Enemy::getHp() const
 {
 	return this->hp;
@@ -69,11 +74,18 @@ HpBar Enemy::getHpBar() const
 }
 
 //public functions
+void Enemy::startEnemy()
+{
+	this->isStarted = true;
+}
+
 int Enemy::receiveDamage(int dmg)
 {
+
 	this->hp -= dmg;
 	if (this->hp <= 0)this->isDead = true;
 	return this->hp;
+
 }
 
 void Enemy::update(sf::RenderWindow& window)
@@ -85,7 +97,7 @@ void Enemy::update(sf::RenderWindow& window)
 		move up enemy.move(0,-speed)
 
 	*/
-	this->receiveDamage(1);
+	this->receiveDamage(0);
 	this->hpBar->update(this->hp, this->enemySprite.getPosition());
 	
 	switch (this->direction) {

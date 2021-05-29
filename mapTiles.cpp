@@ -75,7 +75,6 @@ int MapTiles::chooseDirection(sf::RenderWindow & window, sf::Vector2f enemyPos, 
 		return 2 - move left,
 		return 3 - move up
 	*/
-	std::cout << enemyPos.x << " " << enemyPos.y << std::endl;
 	
 
 	unsigned int tileSize = window.getSize().x / this->width;

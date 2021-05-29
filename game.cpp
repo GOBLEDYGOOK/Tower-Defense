@@ -11,6 +11,7 @@ void Game::initVariables()
 	this->isGameStarted = false;
 	this->isGamePaused = false;
 	this->towerContainer = nullptr;
+	wave = nullptr;
 	tmp = false;
 	
 	f.loadFromFile("arial.ttf");
@@ -24,7 +25,7 @@ void Game::initWindow()
 	this->videoMode.height = 900;
 	this->videoMode.width = 1260;
 	this->window = new sf::RenderWindow(this->videoMode, "Tower Defense", sf::Style::Titlebar | sf::Style::Close);
-	this->window->setFramerateLimit(200);
+	this->window->setFramerateLimit(170);
 }
 
 void Game::initMenu()
@@ -47,9 +48,9 @@ void Game::initTowerContainer()
 	this->towerContainer = new TowerContainer();
 }
 
-void Game::initEnemy()
+void Game::initWave()
 {
-		enemy = new Enemy("enemyFast.png", 25, 600, 10, 1.0f);
+		wave = new Wave(10, 10, 10);
 }
 
 //Constructor
@@ -61,7 +62,7 @@ Game::Game()
 	this->initMap();
 	this->initTowerContainer();
 	this->initShop();
-	this->initEnemy();
+	this->initWave();
 }
 
 //Destructor
@@ -72,6 +73,7 @@ Game::~Game()
 	delete this->map;
 	delete this->shop;
 	delete this->towerContainer;
+	delete wave;
 }
 
 
@@ -133,10 +135,13 @@ void Game::pollEventsGame()
 			break;
 		case sf::Event::KeyPressed:
 			if (ev.key.code == sf::Keyboard::Space) {
-			std::cout << "sopacja" << std::endl;
 			if (!this->isGamePaused) this->isGamePaused = true;
 			else this->isGamePaused = false;
-		}
+			}
+			if (ev.key.code == sf::Keyboard::Enter) {
+				this->wave->startWave();
+			}
+		
 			break;
 		}
 	}
@@ -184,13 +189,9 @@ void Game::update()
 	else {
 		this->pollEventsGame();
 		if (!this->isGamePaused) {
-			if (enemy && !enemy->getIsDead()) {
-				enemy->update(*this->window);
-			}
-			if (enemy && enemy->getIsDead()) {
-				delete enemy;
-				enemy = nullptr;
-			}
+			
+			wave->update(*this->window);
+		
 		}
 	}
 	
@@ -211,9 +212,9 @@ void Game::render()
 		this->map->draw(*this->window);
 		//circle.setPosition(enemy.getPosition().x - circle.getRadius() / 2 - 45, enemy.getPosition().y - circle.getRadius() / 2 - 45); Ustawienie range wzgledem wiezy
 		
-		if (enemy && !enemy->getIsDead()) {
-			enemy->draw(*this->window);
-		}
+		
+		wave->draw(*this->window);
+		
 		/*float dx = (enemy.getPosition().x + (enemy.getGlobalBounds().width / 2)) - (circle.getPosition().x + (circle.getGlobalBounds().width / 2));
 		float dy = (enemy.getPosition().y + (enemy.getGlobalBounds().height / 2)) - (circle.getPosition().y + (circle.getGlobalBounds().height / 2));
 		float d = std::sqrt(dx * dx + dy * dy);
