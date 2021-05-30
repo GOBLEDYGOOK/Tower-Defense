@@ -19,10 +19,11 @@ public:
 	//Constructors /Destructors
 	Wave(int numberOfBasic, int numberOfFast, int numberOfTank); // totalNumberOfEnemies = numberOfBasic + numberOfFast + numberOfTank
 	virtual ~Wave();
+
 	//Public functions
 	void update(sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);
 	void startWave();
-
+	bool empty();
 };
 

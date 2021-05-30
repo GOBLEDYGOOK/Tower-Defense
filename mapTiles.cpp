@@ -88,10 +88,10 @@ int MapTiles::chooseDirection(sf::RenderWindow & window, sf::Vector2f enemyPos, 
 		if (this->mapTiles[x + (y*this->width) + 1] == 0) {
 			return 1;
 		}
+
 		if (this->mapTiles[x + (y*this->width) - 1] == 0) {
 			return 2;
-		}
-		
+		}	
 	}
 	if (previousDirection == 1 && x_ == x && y_ == y) {
 		if (this->mapTiles[x + (y*this->width) + this->width] == 0) {

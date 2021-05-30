@@ -69,7 +69,7 @@ void Shop::drawClickedTower()
 		this->window->draw(this->getMapGridSprite());
 		this->window->draw(this->getShopTowers().getTower(0)->getRange());
 		this->window->draw(this->getShopTowers().getTower(0)->getSprite());
-		
+		break;
 	}
 
 }

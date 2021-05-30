@@ -55,12 +55,15 @@ Wave::~Wave() {
 //Public functions
 void Wave::update(sf::RenderWindow& window)
 {
+	auto toDelete = this->enemyContainer.end();
 	for (auto itr = this->enemyContainer.begin(); itr != this->enemyContainer.end(); itr++) {
-		if ((*itr)->getIsStarted() && itr != this->enemyContainer.end()-1 && (*itr)->getEnemySprite().getPosition().y == 0)(*(itr + 1))->startEnemy();
+		if ((*itr)->getIsStarted() && itr != this->enemyContainer.end() - 1 && (*itr)->getEnemySprite().getPosition().y == 0)(*(itr + 1))->startEnemy();
 		if ((*itr)->getIsStarted()) {
+			if ((*itr)->getEnemySprite().getPosition().y == 900) toDelete = itr;
 			(*itr)->update(window);
 		}
 	}
+	if (toDelete != this->enemyContainer.end())this->enemyContainer.erase(toDelete);
 }
 
 void Wave::draw(sf::RenderWindow & window)
@@ -69,10 +72,14 @@ void Wave::draw(sf::RenderWindow & window)
 		if ((*itr)->getIsStarted()) {
 			(*itr)->draw(window);
 		}
-		
 	}
 }
 
 void Wave::startWave() {
 	(*this->enemyContainer.begin())->startEnemy();
+}
+
+bool Wave::empty()
+{
+	return this->enemyContainer.empty();
 }

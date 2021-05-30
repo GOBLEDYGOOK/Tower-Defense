@@ -8,7 +8,7 @@
 #include "map.h"
 #include "shop.h"
 #include "towerContainer.h"
-#include "wave.h"
+#include "waveContainer.h"
 #include <iostream>
 
 /*
@@ -33,7 +33,7 @@ class Game
 	bool isGameStarted;
 	bool isGamePaused;
 	bool tmp;
-	Wave* wave;
+	WaveContainer* waveContainer;
 
 	//Private functions
 	void initVariables();
@@ -42,7 +42,7 @@ class Game
 	void initMap();
 	void initShop();
 	void initTowerContainer();
-	void initWave();
+	void initWaveContainer();
 public:
 	//Consturctors /Destructors
 	Game();

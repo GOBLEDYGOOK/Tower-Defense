@@ -19,5 +19,6 @@ public:
 	//Public functions
 	void add(sf::Vector2f mousePos, int i);
 	void draw(sf::RenderWindow &window);
+	
 };
 

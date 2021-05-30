@@ -11,7 +11,7 @@ void Game::initVariables()
 	this->isGameStarted = false;
 	this->isGamePaused = false;
 	this->towerContainer = nullptr;
-	wave = nullptr;
+	this->waveContainer = nullptr;
 	tmp = false;
 	
 	f.loadFromFile("arial.ttf");
@@ -25,7 +25,7 @@ void Game::initWindow()
 	this->videoMode.height = 900;
 	this->videoMode.width = 1260;
 	this->window = new sf::RenderWindow(this->videoMode, "Tower Defense", sf::Style::Titlebar | sf::Style::Close);
-	this->window->setFramerateLimit(170);
+	this->window->setFramerateLimit(0);
 }
 
 void Game::initMenu()
@@ -48,9 +48,9 @@ void Game::initTowerContainer()
 	this->towerContainer = new TowerContainer();
 }
 
-void Game::initWave()
+void Game::initWaveContainer()
 {
-		wave = new Wave(10, 10, 10);
+	this->waveContainer = new WaveContainer();
 }
 
 //Constructor
@@ -62,7 +62,7 @@ Game::Game()
 	this->initMap();
 	this->initTowerContainer();
 	this->initShop();
-	this->initWave();
+	this->initWaveContainer();
 }
 
 //Destructor
@@ -73,7 +73,7 @@ Game::~Game()
 	delete this->map;
 	delete this->shop;
 	delete this->towerContainer;
-	delete wave;
+	delete this->waveContainer;
 }
 
 
@@ -134,14 +134,16 @@ void Game::pollEventsGame()
 			//std::cout << mouse.getPosition(*this->window).x << " " << mouse.getPosition(*this->window).y << std::endl;
 			break;
 		case sf::Event::KeyPressed:
-			if (ev.key.code == sf::Keyboard::Space) {
+			if (ev.key.code == sf::Keyboard::Space) {					//Press space to paus/unpause the game
 			if (!this->isGamePaused) this->isGamePaused = true;
 			else this->isGamePaused = false;
 			}
-			if (ev.key.code == sf::Keyboard::Enter) {
-				this->wave->startWave();
+			if (ev.key.code == sf::Keyboard::Enter) {					//Press enter to start the next wave
+				this->waveContainer->startNextWave();
 			}
-		
+			if (ev.key.code == sf::Keyboard::Num1) {					//Press 1 to slow down the game
+				this->window->setFramerateLimit(150);
+			}
 			break;
 		}
 	}
@@ -189,8 +191,7 @@ void Game::update()
 	else {
 		this->pollEventsGame();
 		if (!this->isGamePaused) {
-			
-			wave->update(*this->window);
+			this->waveContainer->update(*this->window);
 		
 		}
 	}
@@ -213,7 +214,7 @@ void Game::render()
 		//circle.setPosition(enemy.getPosition().x - circle.getRadius() / 2 - 45, enemy.getPosition().y - circle.getRadius() / 2 - 45); Ustawienie range wzgledem wiezy
 		
 		
-		wave->draw(*this->window);
+		this->waveContainer->draw(*this->window);
 		
 		/*float dx = (enemy.getPosition().x + (enemy.getGlobalBounds().width / 2)) - (circle.getPosition().x + (circle.getGlobalBounds().width / 2));
 		float dy = (enemy.getPosition().y + (enemy.getGlobalBounds().height / 2)) - (circle.getPosition().y + (circle.getGlobalBounds().height / 2));
@@ -227,7 +228,5 @@ void Game::render()
 		this->shop->drawClickedTower();
 		this->shop->draw();
 	}
-	
-	
 	this->window->display();
 }
