@@ -1,7 +1,7 @@
 #include "shop.h"
 
 //Constructor
-Shop::Shop(sf::RenderWindow& window, TowerContainer & towerContainer)
+Shop::Shop(sf::RenderWindow& window, TowerContainer& towerContainer)
 {
 	this->initVariables();
 	this->window = &window;

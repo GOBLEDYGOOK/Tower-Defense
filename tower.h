@@ -3,6 +3,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+#include "waveContainer.h"
+#include <cmath>
 
 /*
 	Abstract class of tower
@@ -12,6 +14,10 @@ class Tower{
 
 	//Private variables
 	static const int maxLevel = 3;
+	Enemy *target;
+	WaveContainer* waveContainer;
+	Wave* wave;
+	int isReady;
 	sf::Sprite towerSprite;
 	sf::Texture towerTexture;
 	sf::Vector2i towerPos;
@@ -20,18 +26,21 @@ class Tower{
 	int level;
 	int dmg;
 	int cost;
-
+	float dx;
+	float dy;
+	
+	
 	//Private functions
 	void initVariables(int cost, int dmg);
 	void initTexture(std::string path);
 	void initRange(int radius);
 public:
 	//Constructors /Destructors
+	Tower(WaveContainer& waveContainer, int radius, std::string path, int cost, int dmg);
 	Tower(int radius, std::string path, int cost, int dmg);
 	virtual ~Tower();
 
 	//Accessors
-
 	virtual int retMaxLevel() const;
 	virtual int getDmg() const;
 	virtual int getCost() const;
@@ -43,7 +52,10 @@ public:
 
 	//public functions
 	virtual void setPosition(sf::Vector2f position);
+	virtual void shoot();
+	virtual void update();
 	virtual void upgrade() = 0;
 	virtual void levelUp() = 0;
+	virtual void nextWave();
 };
 

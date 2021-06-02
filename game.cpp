@@ -38,19 +38,20 @@ void Game::initMap()
 	this->map = new Map(this->videoMode);
 }
 
-void Game::initShop()
-{
-	this->shop = new Shop(*this->window, *this->towerContainer);
-}
-
-void Game::initTowerContainer()
-{
-	this->towerContainer = new TowerContainer();
-}
 
 void Game::initWaveContainer()
 {
 	this->waveContainer = new WaveContainer();
+}
+
+void Game::initTowerContainer()
+{
+	this->towerContainer = new TowerContainer(*this->waveContainer);
+}
+
+void Game::initShop()
+{
+	this->shop = new Shop(*this->window, *this->towerContainer);
 }
 
 //Constructor
@@ -60,9 +61,10 @@ Game::Game()
 	this->initWindow();
 	this->initMenu();
 	this->initMap();
+	this->initWaveContainer();
 	this->initTowerContainer();
 	this->initShop();
-	this->initWaveContainer();
+
 }
 
 //Destructor
@@ -134,11 +136,12 @@ void Game::pollEventsGame()
 			//std::cout << mouse.getPosition(*this->window).x << " " << mouse.getPosition(*this->window).y << std::endl;
 			break;
 		case sf::Event::KeyPressed:
-			if (ev.key.code == sf::Keyboard::Space) {					//Press space to paus/unpause the game
+			if (ev.key.code == sf::Keyboard::Space) {					//Press space to pause/unpause the game
 			if (!this->isGamePaused) this->isGamePaused = true;
 			else this->isGamePaused = false;
 			}
 			if (ev.key.code == sf::Keyboard::Enter) {					//Press enter to start the next wave
+				this->towerContainer->nextWave();
 				this->waveContainer->startNextWave();
 			}
 			if (ev.key.code == sf::Keyboard::Num1) {					//Press 1 to slow down the game
@@ -192,7 +195,7 @@ void Game::update()
 		this->pollEventsGame();
 		if (!this->isGamePaused) {
 			this->waveContainer->update(*this->window);
-		
+			this->towerContainer->update();
 		}
 	}
 	
@@ -216,13 +219,6 @@ void Game::render()
 		
 		this->waveContainer->draw(*this->window);
 		
-		/*float dx = (enemy.getPosition().x + (enemy.getGlobalBounds().width / 2)) - (circle.getPosition().x + (circle.getGlobalBounds().width / 2));
-		float dy = (enemy.getPosition().y + (enemy.getGlobalBounds().height / 2)) - (circle.getPosition().y + (circle.getGlobalBounds().height / 2));
-		float d = std::sqrt(dx * dx + dy * dy);
-		if (d <= ((enemy.getGlobalBounds().width / 2) + circle.getGlobalBounds().width / 2)) {
-
-			//std::cout << "dupa" << std::endl;
-		}*/
 		
 		this->towerContainer->draw(*this->window);
 		this->shop->drawClickedTower();

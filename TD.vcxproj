@@ -131,18 +131,40 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="enemyBasic.cpp" />
+    <ClCompile Include="enemyFast.cpp" />
+    <ClCompile Include="enemyTank.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="hpBar.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="map.cpp" />
+    <ClCompile Include="mapTiles.cpp" />
+    <ClCompile Include="shop.cpp" />
+    <ClCompile Include="shopTowers.cpp" />
     <ClCompile Include="startMenu.cpp" />
     <ClCompile Include="tower.cpp" />
+    <ClCompile Include="towerBasic.cpp" />
+    <ClCompile Include="towerContainer.cpp" />
+    <ClCompile Include="wave.cpp" />
+    <ClCompile Include="waveContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="enemyBasic.h" />
+    <ClInclude Include="enemyFast.h" />
+    <ClInclude Include="enemyTank.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="hpBar.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="mapTiles.h" />
+    <ClInclude Include="shop.h" />
+    <ClInclude Include="shopTowers.h" />
     <ClInclude Include="startMenu.h" />
     <ClInclude Include="tower.h" />
+    <ClInclude Include="towerBasic.h" />
+    <ClInclude Include="towerContainer.h" />
+    <ClInclude Include="wave.h" />
+    <ClInclude Include="waveContainer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

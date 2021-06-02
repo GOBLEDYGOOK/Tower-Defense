@@ -14,11 +14,11 @@ void WaveContainer::initWaves()
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 2:
-			toAdd = new Wave(0, 1, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(0, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 3:
-			toAdd = new Wave(0, 1, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(1, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 4:
@@ -101,4 +101,9 @@ void WaveContainer::draw(sf::RenderWindow & window)
 void WaveContainer::startNextWave()
 {
 	if (!this->waveContainer.empty()) (*this->waveContainer.begin())->startWave();
+}
+
+Wave* WaveContainer::front()
+{
+	return this->waveContainer.front();
 }

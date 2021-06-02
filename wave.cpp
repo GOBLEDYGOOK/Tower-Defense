@@ -55,15 +55,19 @@ Wave::~Wave() {
 //Public functions
 void Wave::update(sf::RenderWindow& window)
 {
-	auto toDelete = this->enemyContainer.end();
+
+	std::vector<std::vector<Enemy*>::iterator> enemiesToDelete;
 	for (auto itr = this->enemyContainer.begin(); itr != this->enemyContainer.end(); itr++) {
 		if ((*itr)->getIsStarted() && itr != this->enemyContainer.end() - 1 && (*itr)->getEnemySprite().getPosition().y == 0)(*(itr + 1))->startEnemy();
 		if ((*itr)->getIsStarted()) {
-			if ((*itr)->getEnemySprite().getPosition().y == 900) toDelete = itr;
+			if ((*itr)->getEnemySprite().getPosition().y == 900) enemiesToDelete.push_back(itr);
+			if ((*itr)->getIsDead()) enemiesToDelete.push_back(itr);
 			(*itr)->update(window);
 		}
 	}
-	if (toDelete != this->enemyContainer.end())this->enemyContainer.erase(toDelete);
+	for (auto itr = enemiesToDelete.begin(); itr != enemiesToDelete.end(); itr++) {
+		this->enemyContainer.erase(*itr);
+	}
 }
 
 void Wave::draw(sf::RenderWindow & window)
@@ -77,6 +81,16 @@ void Wave::draw(sf::RenderWindow & window)
 
 void Wave::startWave() {
 	(*this->enemyContainer.begin())->startEnemy();
+}
+
+std::vector<Enemy *>::iterator Wave::begin()
+{
+	return enemyContainer.begin();
+}
+
+std::vector<Enemy *>::iterator Wave::end()
+{
+	return enemyContainer.end();
 }
 
 bool Wave::empty()

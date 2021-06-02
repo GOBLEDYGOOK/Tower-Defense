@@ -17,13 +17,15 @@ class Wave
 	void initEnemyContainer(int numberOfBasic, int numberOfFast, int numberOfTank); // totalNumberOfEnemies = numberOfBasic + numberOfFast + numberOfTank
 public:
 	//Constructors /Destructors
-	Wave(int numberOfBasic, int numberOfFast, int numberOfTank); // totalNumberOfEnemies = numberOfBasic + numberOfFast + numberOfTank
+	Wave(int numberOfBasic = 0, int numberOfFast = 0, int numberOfTank = 0); // totalNumberOfEnemies = numberOfBasic + numberOfFast + numberOfTank
 	virtual ~Wave();
 
 	//Public functions
 	void update(sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);
 	void startWave();
+	std::vector<Enemy *>::iterator begin();
+	std::vector<Enemy *>::iterator end();
 	bool empty();
 };
 

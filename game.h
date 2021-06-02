@@ -22,8 +22,7 @@ class Game
 	StartMenu* startMenu;
 	Map* map;
 	Shop *shop;
-	MapTiles mapTiles; //tmp
-	int direction; //tmp
+	WaveContainer* waveContainer;
 	TowerContainer* towerContainer;
 	sf::Vector2f mousePositionFloat;
 	sf::VideoMode videoMode;
@@ -33,16 +32,17 @@ class Game
 	bool isGameStarted;
 	bool isGamePaused;
 	bool tmp;
-	WaveContainer* waveContainer;
+	
 
 	//Private functions
 	void initVariables();
 	void initWindow();
 	void initMenu();
 	void initMap();
-	void initShop();
-	void initTowerContainer();
 	void initWaveContainer();
+	void initTowerContainer();
+	void initShop();
+	
 public:
 	//Consturctors /Destructors
 	Game();

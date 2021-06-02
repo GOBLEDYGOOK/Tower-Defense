@@ -29,5 +29,6 @@ public:
 	void update(sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);
 	void startNextWave();
+	Wave* front();
 };
 

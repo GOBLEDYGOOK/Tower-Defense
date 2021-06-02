@@ -97,7 +97,7 @@ void Enemy::update(sf::RenderWindow& window)
 		move up enemy.move(0,-speed)
 
 	*/
-	this->receiveDamage(0);
+
 	this->hpBar->update(this->hp, this->enemySprite.getPosition());
 	
 	switch (this->direction) {
@@ -119,6 +119,7 @@ void Enemy::update(sf::RenderWindow& window)
 		break;
 	}
 	this->direction = this->mapTiles.chooseDirection(window, this->enemySprite.getPosition(), this->direction);
+	if (this->hp <= 0)this->isDead = true;
 }
 
 void Enemy::draw(sf::RenderWindow & window)

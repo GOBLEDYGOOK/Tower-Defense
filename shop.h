@@ -1,5 +1,4 @@
 #pragma once
-
 #include "shopTowers.h"
 #include "map.h"
 #include "mapTiles.h"
@@ -23,7 +22,7 @@ class Shop : public ShopTowers{
 	void initGoldLabel();
 public:
 	//Constructors /Destructors
-	Shop(sf::RenderWindow& window, TowerContainer & towerContainer);
+	Shop(sf::RenderWindow& window, TowerContainer& towerContainer);
 	Shop();
 	virtual ~Shop();
 
