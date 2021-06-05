@@ -24,8 +24,6 @@ Tower::~Tower()
 }void Tower::initVariables(int cost, int dmg)
 {
 	this->level = 1;
-	this->isReady = 90;
-	this->target = nullptr;
 	this->cost = cost;
 	this->dmg = dmg;
 }
@@ -46,8 +44,13 @@ void Tower::initRange(int radius)
 }
 
 
+Wave* Tower::getWave() const
+{
+	return this->wave;
+}
+
 //Accessors
-int Tower::retMaxLevel() const
+int Tower::getMaxLevel() const
 {
 	return this->maxLevel;
 }
@@ -81,6 +84,11 @@ sf::Texture Tower::getTexture() const
 	return this->towerTexture;
 }
 
+WaveContainer* Tower::getWaveContainer() const
+{
+	return this->waveContainer;
+}
+
 sf::Vector2i Tower::getTowerPos() const
 {
 	return this->towerPos;
@@ -93,36 +101,9 @@ void Tower::setPosition(sf::Vector2f position)
 	this->range.setPosition(this->towerSprite.getPosition().x - this->range.getRadius() / 2 - 45, this->towerSprite.getPosition().y - this->range.getRadius() / 2 - 45);
 }
 
-void Tower::shoot()
-{
-	if (this->isReady == 90 && this->target != nullptr) {
-		this->target->receiveDamage(this->dmg);
-		this->isReady = 0;
-	}
-	if (this->isReady < 90) {
-		this->isReady++;
-	}
-	
-	
-}
-
 void Tower::nextWave()
 {
-	this->wave = this->waveContainer->front();
+	if (!this->waveContainer->empty()) this->wave = this->waveContainer->front();
 }
 
-void Tower::update()
-{
-	
-	if (this->target == nullptr) {
-		for (auto itr = this->wave->begin(); itr != this->wave->end(); itr++) {
-			this->dx = ((*itr)->getEnemySprite().getPosition().x + ((*itr)->getEnemySprite().getGlobalBounds().width / 2)) - (this->range.getPosition().x + (this->range.getGlobalBounds().width / 2));
-			this->dy = ((*itr)->getEnemySprite().getPosition().y + ((*itr)->getEnemySprite().getGlobalBounds().height / 2)) - (this->range.getPosition().y + (this->range.getGlobalBounds().height / 2));
-			float d = std::sqrt(dx * dx + dy * dy);
-			if (d <= (((*itr)->getEnemySprite().getGlobalBounds().width / 2) + this->range.getGlobalBounds().width / 2)) {
-				this->target = *itr;
-			}
-		}
-	}
-}
 

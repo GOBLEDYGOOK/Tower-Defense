@@ -31,6 +31,7 @@ public:
 	sf::Sprite getMapGridSprite()const;
 
 	//Public functions
+	void addGold(int gold);
 	void draw();
 	void drawClickedTower();
 	void shopClicked();

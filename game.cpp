@@ -12,6 +12,7 @@ void Game::initVariables()
 	this->isGamePaused = false;
 	this->towerContainer = nullptr;
 	this->waveContainer = nullptr;
+	this->base = nullptr;
 	tmp = false;
 	
 	f.loadFromFile("arial.ttf");
@@ -54,6 +55,11 @@ void Game::initShop()
 	this->shop = new Shop(*this->window, *this->towerContainer);
 }
 
+void Game::initBase()
+{
+	this->base = new Base();
+}
+
 //Constructor
 Game::Game()
 {
@@ -64,6 +70,7 @@ Game::Game()
 	this->initWaveContainer();
 	this->initTowerContainer();
 	this->initShop();
+	this->initBase();
 
 }
 
@@ -76,6 +83,7 @@ Game::~Game()
 	delete this->shop;
 	delete this->towerContainer;
 	delete this->waveContainer;
+	delete this->base;
 }
 
 
@@ -194,8 +202,9 @@ void Game::update()
 	else {
 		this->pollEventsGame();
 		if (!this->isGamePaused) {
-			this->waveContainer->update(*this->window);
+			this->shop->addGold(this->waveContainer->update(*this->window, *this->base));
 			this->towerContainer->update();
+			this->base->update();
 		}
 	}
 	
@@ -214,11 +223,8 @@ void Game::render()
 	else {
 
 		this->map->draw(*this->window);
-		//circle.setPosition(enemy.getPosition().x - circle.getRadius() / 2 - 45, enemy.getPosition().y - circle.getRadius() / 2 - 45); Ustawienie range wzgledem wiezy
-		
-		
 		this->waveContainer->draw(*this->window);
-		
+		this->base->draw(*this->window);
 		
 		this->towerContainer->draw(*this->window);
 		this->shop->drawClickedTower();

@@ -5,19 +5,23 @@ class HpBar
 {
 	//Private variables
 	sf::RectangleShape hp;
-	int enemyHp;
+	int fullHp;
 
 	//Private functions
-	void initHp(sf::Vector2f position);
+	void initHp();
 public:
 	//Constructors /Destructors
-	HpBar(int hp, sf::Vector2f position);
+	HpBar(int hp);
 	~HpBar();
 
 	//Public functions
-	void update(int hp, sf::Vector2f position);
+	void updateEnemy(int hp, sf::Vector2f position);
+	void updateBase(int hp);
+	
 	void draw(sf::RenderWindow& window);
 	void move(float x, float y);
+	void setPosition(sf::Vector2f position);
+	void setSize(sf::Vector2f size);
 
 };
 

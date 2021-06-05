@@ -10,7 +10,11 @@
 class TowerBasic :public Tower
 {
 	//Private variables
-
+	int isReady;
+	float dx;
+	float dy;
+	float d;
+	Enemy *target;
 	//Private functions
 	
 public:
@@ -25,5 +29,7 @@ public:
 	//Public functions
 	virtual void upgrade();
 	virtual void levelUp();
+	virtual void shoot();
+	virtual void update();
 };
 

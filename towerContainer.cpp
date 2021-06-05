@@ -26,6 +26,7 @@ void TowerContainer::add(sf::Vector2f mousePos, int i)
 	y *= 90;
 	switch (i) {
 	case 0: {
+		
 		tmp = new TowerBasic(*this->waveContainer);
 		tmp->setPosition(sf::Vector2f(x, y));
 		this->towerContainer.push_back(tmp);

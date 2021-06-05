@@ -53,21 +53,28 @@ Wave::~Wave() {
 }
 
 //Public functions
-void Wave::update(sf::RenderWindow& window)
+int Wave::update(sf::RenderWindow& window, Base& base)
 {
-
+	int goldToAdd = 0;
 	std::vector<std::vector<Enemy*>::iterator> enemiesToDelete;
 	for (auto itr = this->enemyContainer.begin(); itr != this->enemyContainer.end(); itr++) {
 		if ((*itr)->getIsStarted() && itr != this->enemyContainer.end() - 1 && (*itr)->getEnemySprite().getPosition().y == 0)(*(itr + 1))->startEnemy();
 		if ((*itr)->getIsStarted()) {
-			if ((*itr)->getEnemySprite().getPosition().y == 900) enemiesToDelete.push_back(itr);
-			if ((*itr)->getIsDead()) enemiesToDelete.push_back(itr);
+			if ((*itr)->getEnemySprite().getPosition().y == 900) {
+				base.receiveDamage((*itr)->getDamage());
+				enemiesToDelete.push_back(itr);
+			}
+			else if ((*itr)->getIsDead()) {
+				goldToAdd += (*itr)->getGold();
+				enemiesToDelete.push_back(itr);
+			}
 			(*itr)->update(window);
 		}
 	}
 	for (auto itr = enemiesToDelete.begin(); itr != enemiesToDelete.end(); itr++) {
 		this->enemyContainer.erase(*itr);
 	}
+	return goldToAdd;
 }
 
 void Wave::draw(sf::RenderWindow & window)

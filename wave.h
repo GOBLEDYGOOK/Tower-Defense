@@ -1,12 +1,10 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "enemyBasic.h"
 #include "enemyTank.h"
 #include "enemyFast.h"
 #include <vector>
+#include "base.h"
 #include "time.h"
-#include <iostream>
-
 
 class Wave
 {
@@ -21,7 +19,7 @@ public:
 	virtual ~Wave();
 
 	//Public functions
-	void update(sf::RenderWindow& window);
+	int update(sf::RenderWindow& window, Base& base);
 	void draw(sf::RenderWindow& window);
 	void startWave();
 	std::vector<Enemy *>::iterator begin();

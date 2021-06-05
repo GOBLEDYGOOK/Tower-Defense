@@ -1,8 +1,9 @@
 #pragma once
 #include "wave.h"
 
+
 /*
-		Class which store all waves of the enemies
+		Class which stores all waves of the enemies
 */
 
 class WaveContainer
@@ -24,11 +25,11 @@ public:
 	//Accessors
 	int getCurrentWave() const;
 	int getMaxNumberOfWaves() const;
-
+	
 	//Public functions
-	void update(sf::RenderWindow& window);
+	int update(sf::RenderWindow& window, Base& base); 
 	void draw(sf::RenderWindow& window);
 	void startNextWave();
 	Wave* front();
+	bool empty();
 };
-

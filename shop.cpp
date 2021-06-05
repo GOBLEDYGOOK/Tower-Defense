@@ -51,7 +51,14 @@ sf::Sprite Shop::getMapGridSprite()const
 	return this->mapGrid;
 }
 
+
 //Public functions
+void Shop::addGold(int gold)
+{
+	this->totalGold += gold;
+	this->goldLabel.setString("$" + std::to_string(this->totalGold));
+}
+
 void Shop::draw()
 {
 	this->window->draw(this->shopTowers.getSpriteTower(0));
@@ -83,10 +90,8 @@ void Shop::shopClicked()
 			if (getIsClicked() == 0) {
 				changeIsClicked(-1);
 			}else changeIsClicked(0);
-			
 		}
 	}
-
 }
 
 void Shop::buy()
@@ -94,9 +99,6 @@ void Shop::buy()
 	sf::Vector2f mousePositionFloat = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*this->window));
 	if (this->mapTiles.isValid(*this->window, mousePositionFloat)) {
 		this->totalGold -= getCost(getIsClicked());
-
-		this->goldLabel.setString("$" + std::to_string(this->totalGold));
-
 		this->towerContainer->add(mousePositionFloat, getIsClicked());				//Add to container of towers
 		changeIsClicked(-1);
 	}

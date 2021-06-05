@@ -20,6 +20,7 @@ public:
 	//Accessors
 	size_t getHeight()const;
 	size_t getWidth()const;
+
 	//Public functions
 	bool isValid(sf::RenderWindow& window, sf::Vector2f mousePositionFloat);
 	int chooseDirection(sf::RenderWindow& window, sf::Vector2f enemyPos, int previousDirection);

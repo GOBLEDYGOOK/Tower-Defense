@@ -1,9 +1,9 @@
 #pragma once
+#include "waveContainer.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
-#include "waveContainer.h"
 #include <cmath>
 
 /*
@@ -14,10 +14,9 @@ class Tower{
 
 	//Private variables
 	static const int maxLevel = 3;
-	Enemy *target;
+	
 	WaveContainer* waveContainer;
 	Wave* wave;
-	int isReady;
 	sf::Sprite towerSprite;
 	sf::Texture towerTexture;
 	sf::Vector2i towerPos;
@@ -26,9 +25,6 @@ class Tower{
 	int level;
 	int dmg;
 	int cost;
-	float dx;
-	float dy;
-	
 	
 	//Private functions
 	void initVariables(int cost, int dmg);
@@ -41,7 +37,8 @@ public:
 	virtual ~Tower();
 
 	//Accessors
-	virtual int retMaxLevel() const;
+	Wave* getWave() const;
+	virtual int getMaxLevel() const;
 	virtual int getDmg() const;
 	virtual int getCost() const;
 	virtual sf::CircleShape getRange() const;
@@ -49,11 +46,12 @@ public:
 	virtual sf::Sprite getSprite() const;
 	virtual sf::Vector2i getTowerPos() const;
 	virtual sf::Texture getTexture()const;
+	WaveContainer* getWaveContainer() const;
 
 	//public functions
 	virtual void setPosition(sf::Vector2f position);
-	virtual void shoot();
-	virtual void update();
+	virtual void shoot() = 0;
+	virtual void update() = 0;
 	virtual void upgrade() = 0;
 	virtual void levelUp() = 0;
 	virtual void nextWave();

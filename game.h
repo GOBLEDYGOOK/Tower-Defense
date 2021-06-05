@@ -4,12 +4,9 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include "startMenu.h"
-#include "mapTiles.h"
-#include "map.h"
-#include "shop.h"
-#include "towerContainer.h"
 #include "waveContainer.h"
 #include <iostream>
+#include "shop.h"
 
 /*
 		Class which acts like a game engine
@@ -22,6 +19,7 @@ class Game
 	StartMenu* startMenu;
 	Map* map;
 	Shop *shop;
+	Base *base;
 	WaveContainer* waveContainer;
 	TowerContainer* towerContainer;
 	sf::Vector2f mousePositionFloat;
@@ -42,6 +40,7 @@ class Game
 	void initWaveContainer();
 	void initTowerContainer();
 	void initShop();
+	void initBase();
 	
 public:
 	//Consturctors /Destructors

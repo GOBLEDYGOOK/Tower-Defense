@@ -12,7 +12,9 @@ void Enemy::initVariables(std::string path, int gold, int hp, int dmg, float vel
 	this->enemyTexture.loadFromFile(path);
 	this->enemySprite.setTexture(this->enemyTexture);
 	this->enemySprite.setPosition(270.0f, -90.0f);
-	this->hpBar = new HpBar(this->hp, this->enemySprite.getPosition());
+	this->hpBar = new HpBar(this->hp);
+	this->hpBar->setPosition(sf::Vector2f(this->enemySprite.getPosition().x + 15, this->enemySprite.getPosition().y + 80));
+	this->hpBar->setSize(sf::Vector2f(60.0f, 8.0f));
 }
 
 //Consturctors /Destructors
@@ -98,7 +100,7 @@ void Enemy::update(sf::RenderWindow& window)
 
 	*/
 
-	this->hpBar->update(this->hp, this->enemySprite.getPosition());
+	this->hpBar->updateEnemy(this->hp, this->enemySprite.getPosition());
 	
 	switch (this->direction) {
 	case 0:

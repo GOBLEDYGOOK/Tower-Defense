@@ -18,31 +18,31 @@ void WaveContainer::initWaves()
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 3:
-			toAdd = new Wave(1, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(0, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 4:
-			toAdd = new Wave(0, 1, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(0, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 5:
-			toAdd = new Wave(0, 1, 0);							//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(0, 0, 0);							//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 6:
-			toAdd = new Wave(0, 1, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(0, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 7:
-			toAdd = new Wave(0, 1, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(0, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 8:
-			toAdd = new Wave(0, 1, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(0, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 9:
-			toAdd = new Wave(0, 1, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(0, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 10:
@@ -84,13 +84,14 @@ int WaveContainer::getMaxNumberOfWaves() const
 }
 
 //Public functions
-void WaveContainer::update(sf::RenderWindow & window)
+int WaveContainer::update(sf::RenderWindow & window, Base& base)
 {
 	if (!this->waveContainer.empty() && (*this->waveContainer.begin())->empty()) {
 		this->currentWave++;
 		this->waveContainer.erase(this->waveContainer.begin());
 	}
-	if (!this->waveContainer.empty())(*this->waveContainer.begin())->update(window);
+	if (!this->waveContainer.empty())return (*this->waveContainer.begin())->update(window, base);
+	return 0;
 }
 
 void WaveContainer::draw(sf::RenderWindow & window)
@@ -105,5 +106,12 @@ void WaveContainer::startNextWave()
 
 Wave* WaveContainer::front()
 {
-	return this->waveContainer.front();
+	if (!this->waveContainer.empty()) {
+		return this->waveContainer.front();
+	}
+}
+
+bool WaveContainer::empty()
+{
+	return this->waveContainer.empty();
 }
