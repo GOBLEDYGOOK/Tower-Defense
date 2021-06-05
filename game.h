@@ -4,6 +4,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include "startMenu.h"
+#include "endMenu.h"
 #include "waveContainer.h"
 #include <iostream>
 #include "shop.h"
@@ -17,6 +18,7 @@ class Game
 	//Private variables
 	sf::RenderWindow* window;
 	StartMenu* startMenu;
+	EndMenu* endMenu;
 	Map* map;
 	Shop *shop;
 	Base *base;
@@ -27,7 +29,6 @@ class Game
 	sf::Event ev;
 	sf::Text t;
 	sf::Font f;
-	bool isGameStarted;
 	bool isGamePaused;
 	bool tmp;
 	
@@ -41,7 +42,7 @@ class Game
 	void initTowerContainer();
 	void initShop();
 	void initBase();
-	
+	void initNewGame();
 public:
 	//Consturctors /Destructors
 	Game();
@@ -56,5 +57,8 @@ public:
 	void keyPressedMenu();
 	void update();
 	void render();
+	void gameOver();
+	void newGame();
+	void clear();
 };
 

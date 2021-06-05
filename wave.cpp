@@ -71,9 +71,13 @@ int Wave::update(sf::RenderWindow& window, Base& base)
 			(*itr)->update(window);
 		}
 	}
-	for (auto itr = enemiesToDelete.begin(); itr != enemiesToDelete.end(); itr++) {
-		this->enemyContainer.erase(*itr);
+	for (size_t i = 0; i < enemiesToDelete.size(); i++) {
+		this->enemyContainer.erase(enemiesToDelete.back());
+		enemiesToDelete.pop_back();
 	}
+	
+	
+	
 	return goldToAdd;
 }
 

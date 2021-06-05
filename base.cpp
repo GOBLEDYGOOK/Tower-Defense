@@ -19,6 +19,11 @@ Base::~Base()
 {
 }
 
+int Base::getHp() const
+{
+	return this->hp;
+}
+
 //Public functions
 void Base::update()
 {

@@ -13,6 +13,10 @@ public:
 	//Constructors /Destructors
 	Base();
 	~Base();
+
+	//Accessors
+	int getHp()const;
+
 	//public functions
 	void update();
 	void draw(sf::RenderWindow& window);

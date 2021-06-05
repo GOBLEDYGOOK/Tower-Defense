@@ -5,6 +5,7 @@ class HpBar
 {
 	//Private variables
 	sf::RectangleShape hp;
+	sf::RectangleShape frame;
 	int fullHp;
 
 	//Private functions

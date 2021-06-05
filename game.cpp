@@ -8,10 +8,10 @@ void Game::initVariables()
 	this->startMenu = nullptr;
 	this->map = nullptr;
 	this->shop = nullptr;
-	this->isGameStarted = false;
 	this->isGamePaused = false;
 	this->towerContainer = nullptr;
 	this->waveContainer = nullptr;
+	this->endMenu = nullptr;
 	this->base = nullptr;
 	tmp = false;
 	
@@ -26,7 +26,7 @@ void Game::initWindow()
 	this->videoMode.height = 900;
 	this->videoMode.width = 1260;
 	this->window = new sf::RenderWindow(this->videoMode, "Tower Defense", sf::Style::Titlebar | sf::Style::Close);
-	this->window->setFramerateLimit(0);
+	this->window->setFramerateLimit(60);
 }
 
 void Game::initMenu()
@@ -60,6 +60,15 @@ void Game::initBase()
 	this->base = new Base();
 }
 
+void Game::initNewGame()
+{
+	this->initMap();
+	this->initWaveContainer();
+	this->initTowerContainer();
+	this->initShop();
+	this->initBase();
+}
+
 //Constructor
 Game::Game()
 {
@@ -71,7 +80,6 @@ Game::Game()
 	this->initTowerContainer();
 	this->initShop();
 	this->initBase();
-
 }
 
 //Destructor
@@ -84,6 +92,7 @@ Game::~Game()
 	delete this->towerContainer;
 	delete this->waveContainer;
 	delete this->base;
+	delete this->endMenu;
 }
 
 
@@ -149,11 +158,19 @@ void Game::pollEventsGame()
 			else this->isGamePaused = false;
 			}
 			if (ev.key.code == sf::Keyboard::Enter) {					//Press enter to start the next wave
-				this->towerContainer->nextWave();
-				this->waveContainer->startNextWave();
+				if (!this->waveContainer->empty()) {
+					this->towerContainer->nextWave();
+					this->waveContainer->startNextWave();
+				}
 			}
-			if (ev.key.code == sf::Keyboard::Num1) {					//Press 1 to slow down the game
-				this->window->setFramerateLimit(150);
+			if (ev.key.code == sf::Keyboard::Num1) {					//Press 1 to 1x speed the game
+				this->window->setFramerateLimit(60);
+			}
+			if (ev.key.code == sf::Keyboard::Num2) {					//Press 2 to 2x speed the game
+				this->window->setFramerateLimit(120);
+			}
+			if (ev.key.code == sf::Keyboard::Num3) {					//Press 3 to 3x speed the game
+				this->window->setFramerateLimit(180);
 			}
 			break;
 		}
@@ -166,11 +183,21 @@ void Game::keyPressedMenu()
 	switch (this->ev.key.code)
 	{
 	case sf::Keyboard::Up:
-		this->startMenu->moveUp();
+		if (this->startMenu != nullptr) {
+			this->startMenu->moveUp();
+		}
+		else if (this->endMenu != nullptr) {
+			this->endMenu->moveUp();
+		}
 		break;
 
 	case sf::Keyboard::Down:
-		this->startMenu->moveDown();
+		if (this->startMenu != nullptr) {
+			this->startMenu->moveDown();
+		}
+		else if (this->endMenu != nullptr) {
+			this->endMenu->moveDown();
+		}
 		break;
 
 	case sf::Keyboard::Escape:
@@ -178,26 +205,67 @@ void Game::keyPressedMenu()
 		break;
 
 	case sf::Keyboard::Enter:
-		switch (this->startMenu->getSelectedOption())			//Function returns which option has been selected 
-		{
-		case 0:
-			this->isGameStarted = true;
-			delete this->startMenu;
-			break;
-		case 1:
-			this->window->close();
-			break;
+		if (this->startMenu != nullptr) {
+			switch (this->startMenu->getSelectedOption())			//Function returns which option has been selected 
+			{
+			case 0:
+				delete this->startMenu;
+				this->startMenu = nullptr;
+				break;
+			case 1:
+				this->window->close();
+				break;
+			}
+		}
+		if (this->endMenu != nullptr) {
+			switch (this->endMenu->getSelectedOption())			//Function returns which option has been selected 
+			{
+			case 0:
+				delete this->endMenu;
+				this->endMenu = nullptr;
+				this->newGame();
+				break;
+			case 1:
+				this->window->close();
+				break;
+			}
 		}
 		break;
 	}
 }
 
+void Game::gameOver()
+{
+	if (this->waveContainer->empty()) {
+		this->endMenu = new EndMenu(this->videoMode, 1);
+	}
+	else if (this->base->getHp() <= 0) {
+		this->endMenu = new EndMenu(this->videoMode, 0);
+	}
+
+}
+
+void Game::newGame()
+{
+	this->clear();
+	this->initNewGame();
+	this->window->setFramerateLimit(60);
+}
+
+void Game::clear()
+{
+	delete this->map;
+	delete this->shop;
+	delete this->towerContainer;
+	delete this->waveContainer;
+	delete this->base;
+}
+
 
 void Game::update()
 {
-	if (!this->isGameStarted) {
+	if (this->startMenu != nullptr || this->endMenu != nullptr) {
 		this->pollEventsMenu();
-		
 	}
 	else {
 		this->pollEventsGame();
@@ -216,19 +284,23 @@ void Game::render()
 	this->mousePositionFloat = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*this->window));
 	//Draw game objects
 	
-	if (!this->isGameStarted) {
-		this->startMenu->draw(*this->window);
-
+	if (this->startMenu != nullptr || this->endMenu != nullptr) {
+		if (this->startMenu != nullptr) {
+			this->startMenu->draw(*this->window);
+		}
+		if (this->endMenu != nullptr) {
+			this->endMenu->draw(*this->window);
+		}
 	}
 	else {
-
+		this->gameOver();
 		this->map->draw(*this->window);
 		this->waveContainer->draw(*this->window);
 		this->base->draw(*this->window);
-		
 		this->towerContainer->draw(*this->window);
 		this->shop->drawClickedTower();
 		this->shop->draw();
 	}
 	this->window->display();
 }
+

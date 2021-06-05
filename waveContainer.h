@@ -21,15 +21,15 @@ public:
 	WaveContainer();
 	~WaveContainer();
 
-
 	//Accessors
 	int getCurrentWave() const;
 	int getMaxNumberOfWaves() const;
-	
+	bool empty() const;
+
 	//Public functions
 	int update(sf::RenderWindow& window, Base& base); 
 	void draw(sf::RenderWindow& window);
 	void startNextWave();
 	Wave* front();
-	bool empty();
+	
 };

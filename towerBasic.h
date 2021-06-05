@@ -2,7 +2,6 @@
 #include "tower.h"
 #include <string>
 
-
 /*
 	Class of basic tower
 */
@@ -25,7 +24,6 @@ public:
 	
 	//Accesors
 	
-
 	//Public functions
 	virtual void upgrade();
 	virtual void levelUp();

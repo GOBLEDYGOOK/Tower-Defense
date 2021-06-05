@@ -8,6 +8,7 @@ void Enemy::initVariables(std::string path, int gold, int hp, int dmg, float vel
 	this->hp = hp;
 	this->gold = gold;
 	this->damage = dmg;
+	this->isStarted = false;
 	this->velocity = velocity;
 	this->enemyTexture.loadFromFile(path);
 	this->enemySprite.setTexture(this->enemyTexture);
@@ -93,10 +94,10 @@ int Enemy::receiveDamage(int dmg)
 void Enemy::update(sf::RenderWindow& window)
 {
 	/*
-		move down enemy.move(0,speed)
-		move right enemy.move(speed,0)
-		move left enemy.move(-speed,0)
-		move up enemy.move(0,-speed)
+		move down enemy.move(0, speed)
+		move right enemy.move(speed, 0)
+		move left enemy.move(-speed, 0)
+		move up enemy.move(0, -speed)
 
 	*/
 

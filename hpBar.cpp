@@ -4,8 +4,9 @@
 void HpBar::initHp()
 {
 	this->hp.setFillColor(sf::Color::Red);
-	this->hp.setOutlineColor(sf::Color::Black);
-	this->hp.setOutlineThickness(1);
+	this->frame.setOutlineColor(sf::Color::Black);
+	this->frame.setFillColor(sf::Color(0, 0, 0, 0));
+	this->frame.setOutlineThickness(2);
 }
 
 //Constructor
@@ -39,20 +40,24 @@ void HpBar::updateBase(int hp)
 
 void HpBar::draw(sf::RenderWindow & window)
 {
+	window.draw(this->frame);
 	window.draw(this->hp);
 }
 
 void HpBar::move(float x, float y)
 {
+	this->frame.move(x, y);
 	this->hp.move(x, y);
 }
 
 void HpBar::setPosition(sf::Vector2f position)
 {
+	this->frame.setPosition(position);
 	this->hp.setPosition(position);
 }
 
 void HpBar::setSize(sf::Vector2f size)
 {
+	this->frame.setSize(size);
 	this->hp.setSize(size);
 }

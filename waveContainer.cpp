@@ -10,7 +10,7 @@ void WaveContainer::initWaves()
 		toAdd = nullptr;
 		switch (wave) {
 		case 1:
-			toAdd = new Wave(0, 1, 0);							//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(0, 2, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 2:
@@ -26,7 +26,7 @@ void WaveContainer::initWaves()
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 5:
-			toAdd = new Wave(0, 0, 0);							//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(0, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 6:
@@ -46,7 +46,7 @@ void WaveContainer::initWaves()
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 10:
-			toAdd = new Wave(0, 1, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(1, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		}
@@ -111,7 +111,7 @@ Wave* WaveContainer::front()
 	}
 }
 
-bool WaveContainer::empty()
+bool WaveContainer::empty() const
 {
 	return this->waveContainer.empty();
 }

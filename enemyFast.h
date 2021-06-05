@@ -8,7 +8,7 @@ class EnemyFast :public Enemy
 
 public:
 	//Constructos /Destructors
-	EnemyFast(std::string path = "enemyFast.png", int gold = 20, int hp = 50, int dmg = 6, float velocity = 1.0f);
+	EnemyFast(std::string path = "enemyFast.png", int gold = 20, int hp = 50, int dmg = 6, float velocity = 2.0f);
 	virtual ~EnemyFast();
 
 	//Accesors
