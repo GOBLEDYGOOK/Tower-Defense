@@ -10,7 +10,7 @@ void WaveContainer::initWaves()
 		toAdd = nullptr;
 		switch (wave) {
 		case 1:
-			toAdd = new Wave(0, 2, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(0, 20, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 2:

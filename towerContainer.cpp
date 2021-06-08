@@ -29,6 +29,7 @@ void TowerContainer::add(sf::Vector2f mousePos, int i)
 		
 		tmp = new TowerBasic(*this->waveContainer);
 		tmp->setPosition(sf::Vector2f(x, y));
+		tmp->setBullet();
 		this->towerContainer.push_back(tmp);
 		break;
 	}
@@ -42,7 +43,7 @@ void TowerContainer::add(sf::Vector2f mousePos, int i)
 void TowerContainer::draw(sf::RenderWindow & window)
 {
 	for (auto itr = this->towerContainer.begin(); itr != this->towerContainer.end(); itr++) {
-		window.draw((*itr)->getSprite());
+		(*itr)->draw(window);
 	}
 }
 

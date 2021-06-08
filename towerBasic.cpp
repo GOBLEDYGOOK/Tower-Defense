@@ -1,5 +1,11 @@
 #include "towerBasic.h"
 
+//private functions
+void TowerBasic::setBullet()
+{
+	this->bullet = new Bullet(this->getCenter());
+}
+
 //Constructor
 TowerBasic::TowerBasic(WaveContainer& waveContainer, int radius, std::string path, int cost, int dmg) :Tower(waveContainer, radius, path, cost, dmg)
 {
@@ -37,12 +43,21 @@ void TowerBasic::levelUp()
 void TowerBasic::shoot()
 {
 	
-	if (this->target != nullptr && this->target->getIsDead())this->target = nullptr;
-	else if (this->target != nullptr && this->target->getIsStarted() && this->isReady == 90) {
-		this->target->receiveDamage(this->getDmg());
-		this->isReady = 0;
+	if (this->target != nullptr) {
+		
+		if (this->target->getIsDead()) {
+			this->target = nullptr;
+			this->bullet->reset();
+		}
+		else if (this->isReady == 90) {
+			this->bullet->shoot(this->target->getCenter());
+			this->isReady = 0;
+		}
+		if (this->bullet->getIsStarted()) {
+			this->bullet->update(this->target->getCenter(), *this->target, this->getDmg());
+		}
 	}
-	else if (this->isReady < 90) {
+	if (this->isReady < 90) {
 		this->isReady++;
 	}
 
@@ -50,7 +65,7 @@ void TowerBasic::shoot()
 
 void TowerBasic::update()
 {
-	
+		
 		for (auto itr = this->getWave()->begin(); itr != this->getWave()->end(); itr++) {
 			if ((*itr)->getIsStarted()) {
 				this->dx = ((*itr)->getEnemySprite().getPosition().x + ((*itr)->getEnemySprite().getGlobalBounds().width / 2)) - (this->getRange().getPosition().x + (this->getRange().getGlobalBounds().width / 2));
@@ -61,9 +76,18 @@ void TowerBasic::update()
 						this->target = *itr;
 					}
 				}
-				if (this->target == (*itr) && (d > (((*itr)->getEnemySprite().getGlobalBounds().width / 2) + this->getRange().getGlobalBounds().width / 2))) {
+				if (!this->bullet->getIsStarted() && this->target == (*itr) && (d > (((*itr)->getEnemySprite().getGlobalBounds().width / 2) + this->getRange().getGlobalBounds().width / 2))) {
 					this->target = nullptr;
+					this->bullet->reset();
 				}
 			}
 		}
+		
+
+}
+
+void TowerBasic::draw(sf::RenderWindow & window)
+{
+	window.draw(this->getSprite());
+	this->bullet->draw(window);
 }

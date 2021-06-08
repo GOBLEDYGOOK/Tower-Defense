@@ -1,5 +1,6 @@
 #pragma once
 #include "tower.h"
+#include "bullet.h"
 #include <string>
 
 /*
@@ -13,6 +14,7 @@ class TowerBasic :public Tower
 	float dx;
 	float dy;
 	float d;
+	Bullet* bullet;
 	Enemy *target;
 	//Private functions
 	
@@ -25,9 +27,11 @@ public:
 	//Accesors
 	
 	//Public functions
+	void setBullet();
 	virtual void upgrade();
 	virtual void levelUp();
 	virtual void shoot();
 	virtual void update();
+	virtual void draw(sf::RenderWindow& window);
 };
 

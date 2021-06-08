@@ -27,8 +27,8 @@ class Game
 	sf::Vector2f mousePositionFloat;
 	sf::VideoMode videoMode;
 	sf::Event ev;
-	sf::Text t;
-	sf::Font f;
+	sf::Text controls;
+	sf::Font font;
 	bool isGamePaused;
 	bool tmp;
 	
@@ -43,6 +43,7 @@ class Game
 	void initShop();
 	void initBase();
 	void initNewGame();
+	void initTextControls();
 public:
 	//Consturctors /Destructors
 	Game();

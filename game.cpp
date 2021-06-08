@@ -13,12 +13,6 @@ void Game::initVariables()
 	this->waveContainer = nullptr;
 	this->endMenu = nullptr;
 	this->base = nullptr;
-	tmp = false;
-	
-	f.loadFromFile("arial.ttf");
-	t.setString("wow co tu sie wyswietla");
-	t.setFont(f);
-	t.setCharacterSize(30);
 }
 
 void Game::initWindow()
@@ -26,7 +20,7 @@ void Game::initWindow()
 	this->videoMode.height = 900;
 	this->videoMode.width = 1260;
 	this->window = new sf::RenderWindow(this->videoMode, "Tower Defense", sf::Style::Titlebar | sf::Style::Close);
-	this->window->setFramerateLimit(60);
+	this->window->setFramerateLimit(75);
 }
 
 void Game::initMenu()
@@ -69,6 +63,18 @@ void Game::initNewGame()
 	this->initBase();
 }
 
+void Game::initTextControls()
+{
+	this->font.loadFromFile("arial.ttf");
+	this->controls.setFont(this->font);
+	this->controls.setFillColor(sf::Color::White);
+	this->controls.setOutlineColor(sf::Color::Black);
+	this->controls.setOutlineThickness(2);
+	this->controls.setCharacterSize(17);
+	this->controls.setString("Controls: \n Enter - start wave \n Space - pause/unpause \n 1 - 1x speed \n 2 - 2x speed \n 3 - 3x speed");
+	this->controls.setPosition(sf::Vector2f(1010.0f, 650.0f));
+}
+
 //Constructor
 Game::Game()
 {
@@ -80,6 +86,7 @@ Game::Game()
 	this->initTowerContainer();
 	this->initShop();
 	this->initBase();
+	this->initTextControls();
 }
 
 //Destructor
@@ -164,13 +171,13 @@ void Game::pollEventsGame()
 				}
 			}
 			if (ev.key.code == sf::Keyboard::Num1) {					//Press 1 to 1x speed the game
-				this->window->setFramerateLimit(60);
+				this->window->setFramerateLimit(75);
 			}
 			if (ev.key.code == sf::Keyboard::Num2) {					//Press 2 to 2x speed the game
-				this->window->setFramerateLimit(120);
+				this->window->setFramerateLimit(150);
 			}
 			if (ev.key.code == sf::Keyboard::Num3) {					//Press 3 to 3x speed the game
-				this->window->setFramerateLimit(180);
+				this->window->setFramerateLimit(225);
 			}
 			break;
 		}
@@ -283,7 +290,6 @@ void Game::render()
 	this->window->clear();
 	this->mousePositionFloat = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*this->window));
 	//Draw game objects
-	
 	if (this->startMenu != nullptr || this->endMenu != nullptr) {
 		if (this->startMenu != nullptr) {
 			this->startMenu->draw(*this->window);
@@ -300,6 +306,7 @@ void Game::render()
 		this->towerContainer->draw(*this->window);
 		this->shop->drawClickedTower();
 		this->shop->draw();
+		this->window->draw(this->controls);
 	}
 	this->window->display();
 }

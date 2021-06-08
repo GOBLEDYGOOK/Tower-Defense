@@ -56,6 +56,11 @@ int Enemy::getDamage() const
 	return this->damage;
 }
 
+sf::Vector2f Enemy::getCenter() const
+{
+	return sf::Vector2f(this->enemySprite.getPosition().x + 45, this->enemySprite.getPosition().y + 45);
+}
+
 int Enemy::getDirection() const
 {
 	return this->direction;

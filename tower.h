@@ -44,7 +44,7 @@ public:
 	virtual sf::CircleShape getRange() const;
 	virtual int getLevel() const;
 	virtual sf::Sprite getSprite() const;
-	virtual sf::Vector2i getTowerPos() const;
+	virtual sf::Vector2f getCenter() const;
 	virtual sf::Texture getTexture()const;
 	WaveContainer* getWaveContainer() const;
 
@@ -54,6 +54,8 @@ public:
 	virtual void update() = 0;
 	virtual void upgrade() = 0;
 	virtual void levelUp() = 0;
+	virtual void setBullet() = 0;
+	virtual void draw(sf::RenderWindow & window) = 0;
 	virtual void nextWave();
 };
 

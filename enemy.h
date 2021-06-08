@@ -37,6 +37,7 @@ public:
 	int getHp() const;
 	int getGold() const;
 	int getDamage() const;
+	sf::Vector2f getCenter() const;
 	int getDirection() const;
 	float getVelocity() const;
 	sf::Sprite getEnemySprite() const;

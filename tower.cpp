@@ -89,9 +89,9 @@ WaveContainer* Tower::getWaveContainer() const
 	return this->waveContainer;
 }
 
-sf::Vector2i Tower::getTowerPos() const
+sf::Vector2f Tower::getCenter() const
 {
-	return this->towerPos;
+	return sf::Vector2f(this->towerSprite.getPosition().x + 45, this->towerSprite.getPosition().y + 45);
 }
 
 //public functions
