@@ -4,6 +4,7 @@
 Shop::Shop(sf::RenderWindow& window, TowerContainer& towerContainer)
 {
 	this->initVariables();
+	this->initGoldLabel();
 	this->window = &window;
 	this->towerContainer = &towerContainer;
 }
@@ -23,10 +24,10 @@ void Shop::initVariables()
 {
 	this->window = nullptr;
 	this->towerContainer = nullptr;
-	this->totalGold = 1000;
+	this->totalGold = 10000;
 	this->mapGridTexture.loadFromFile("mapGrid1.png");
 	this->mapGrid.setTexture(this->mapGridTexture);
-	this->initGoldLabel();
+	
 }
 
 void Shop::initGoldLabel()
@@ -61,9 +62,11 @@ void Shop::addGold(int gold)
 
 void Shop::draw()
 {
-	this->window->draw(this->shopTowers.getSpriteTower(0));
-	this->window->draw(this->shopTowers.getOutlines(0));
-	this->window->draw(this->shopTowers.getLabel(0));
+	for (int i = 0; i < 2; i++) {
+		this->window->draw(this->shopTowers.getSpriteTower(i));
+		this->window->draw(this->shopTowers.getOutlines(i));
+		this->window->draw(this->shopTowers.getLabel(i));
+	}
 	this->window->draw(this->goldLabel);
 }
 
@@ -76,6 +79,12 @@ void Shop::drawClickedTower()
 		this->window->draw(this->getMapGridSprite());
 		this->window->draw(this->getShopTowers().getTower(0)->getRange());
 		this->window->draw(this->getShopTowers().getTower(0)->getSprite());
+		break;
+	case 1:
+		this->getShopTowers().getTower(1)->setPosition(sf::Vector2f(mousePositionFloat.x - 45.0f, mousePositionFloat.y - 45.0f));
+		this->window->draw(this->getMapGridSprite());
+		this->window->draw(this->getShopTowers().getTower(1)->getRange());
+		this->window->draw(this->getShopTowers().getTower(1)->getSprite());
 		break;
 	}
 
@@ -92,6 +101,14 @@ void Shop::shopClicked()
 			}else changeIsClicked(0);
 		}
 	}
+	if (this->shopTowers.getSpriteTower(1).getGlobalBounds().contains(mousePositionFloat)) {
+		if (this->totalGold >= this->shopTowers.getTower(1)->getCost()) {
+			if (getIsClicked() == 1) {
+				changeIsClicked(-1);
+			}
+			else changeIsClicked(1);
+		}
+	}
 }
 
 void Shop::buy()
@@ -102,4 +119,9 @@ void Shop::buy()
 		this->towerContainer->add(mousePositionFloat, getIsClicked());				//Add to container of towers
 		changeIsClicked(-1);
 	}
+}
+
+bool Shop::isTower(sf::RenderWindow & window, sf::Vector2f mousePositionFloat)
+{
+	return this->mapTiles.isTower(window, mousePositionFloat);
 }

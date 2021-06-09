@@ -1,5 +1,6 @@
 #pragma once
 #include "waveContainer.h"
+#include "dynamicText.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
@@ -13,15 +14,17 @@
 class Tower{
 
 	//Private variables
-	static const int maxLevel = 3;
+	static const int maxLevel = 2;
 	
 	WaveContainer* waveContainer;
+	bool isClicked;
 	Wave* wave;
 	sf::Sprite towerSprite;
 	sf::Texture towerTexture;
 	sf::Vector2i towerPos;
 	sf::Vector2i rangePos;
 	sf::CircleShape range;
+	DynamicText dynamicText;
 	int level;
 	int dmg;
 	int cost;
@@ -38,6 +41,7 @@ public:
 
 	//Accessors
 	Wave* getWave() const;
+	DynamicText getDynamicText() const;
 	virtual int getMaxLevel() const;
 	virtual int getDmg() const;
 	virtual int getCost() const;
@@ -46,14 +50,16 @@ public:
 	virtual sf::Sprite getSprite() const;
 	virtual sf::Vector2f getCenter() const;
 	virtual sf::Texture getTexture()const;
+	bool getIsClicked()const;
 	WaveContainer* getWaveContainer() const;
 
 	//public functions
+	virtual void changeIsClicked();
 	virtual void setPosition(sf::Vector2f position);
 	virtual void shoot() = 0;
 	virtual void update() = 0;
-	virtual void upgrade() = 0;
-	virtual void levelUp() = 0;
+	virtual void levelUp();
+	virtual void upgrade();
 	virtual void setBullet() = 0;
 	virtual void draw(sf::RenderWindow & window) = 0;
 	virtual void nextWave();

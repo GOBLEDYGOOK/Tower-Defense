@@ -8,6 +8,11 @@ Tower::Tower(WaveContainer& waveContainer, int radius, std::string path, int cos
 	this->initTexture(path);
 	this->initRange(radius);
 	this->nextWave();
+	std::string* tmp = new std::string[3];
+	tmp[0] = std::to_string(this->getLevel() + 1);
+	tmp[1] = std::to_string(this->getDmg());
+	tmp[2] = std::to_string(int(this->range.getRadius()));
+	this->dynamicText.setText(tmp);
 }
 
 Tower::Tower(int radius, std::string path, int cost, int dmg)
@@ -23,7 +28,8 @@ Tower::~Tower()
 
 }void Tower::initVariables(int cost, int dmg)
 {
-	this->level = 1;
+	this->level = 0;
+	this->isClicked = false;
 	this->cost = cost;
 	this->dmg = dmg;
 }
@@ -49,7 +55,13 @@ Wave* Tower::getWave() const
 	return this->wave;
 }
 
+
 //Accessors
+DynamicText Tower::getDynamicText() const
+{
+	return this->dynamicText;
+}
+
 int Tower::getMaxLevel() const
 {
 	return this->maxLevel;
@@ -84,6 +96,11 @@ sf::Texture Tower::getTexture() const
 	return this->towerTexture;
 }
 
+bool Tower::getIsClicked() const
+{
+	return this->isClicked;
+}
+
 WaveContainer* Tower::getWaveContainer() const
 {
 	return this->waveContainer;
@@ -95,10 +112,33 @@ sf::Vector2f Tower::getCenter() const
 }
 
 //public functions
+void Tower::changeIsClicked()
+{
+	if (this->isClicked == false)this->isClicked = true;
+	else this->isClicked = false;
+
+}
 void Tower::setPosition(sf::Vector2f position)
 {
 	this->towerSprite.setPosition(position);
-	this->range.setPosition(this->towerSprite.getPosition().x - this->range.getRadius() / 2 - 45, this->towerSprite.getPosition().y - this->range.getRadius() / 2 - 45);
+	this->range.setPosition(this->towerSprite.getPosition().x - this->range.getRadius() + 45, this->towerSprite.getPosition().y - this->range.getRadius() + 45);
+	this->dynamicText.setPosition(position);
+}
+
+void Tower::upgrade()
+{
+	this->range.setRadius(this->range.getRadius() + 20);
+	this->dmg = this->dmg + 0.4*this->dmg + 3;
+	this->cost += 10;
+	this->setPosition(this->towerSprite.getPosition());
+}
+
+void Tower::levelUp()
+{
+	if (this->level != this->maxLevel) {
+		this->level++;
+		this->upgrade();
+	}
 }
 
 void Tower::nextWave()

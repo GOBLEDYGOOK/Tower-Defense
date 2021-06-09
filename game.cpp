@@ -147,8 +147,12 @@ void Game::pollEventsGame()
 				if (this->shop->getIsClicked() != -1) {
 					this->shop->buy();
 				}
+				else if (this->shop->isTower(*this->window, this->mousePositionFloat)) {
+					this->towerContainer->clickedTower(this->mousePositionFloat);
+				}
 				this->shop->shopClicked();
 
+				
 			}
 			break;
 		case sf::Event::MouseMoved:
@@ -157,7 +161,6 @@ void Game::pollEventsGame()
 				tmp = true;
 
 			}
-			//std::cout << mouse.getPosition(*this->window).x << " " << mouse.getPosition(*this->window).y << std::endl;
 			break;
 		case sf::Event::KeyPressed:
 			if (ev.key.code == sf::Keyboard::Space) {					//Press space to pause/unpause the game
@@ -303,9 +306,9 @@ void Game::render()
 		this->map->draw(*this->window);
 		this->waveContainer->draw(*this->window);
 		this->base->draw(*this->window);
-		this->towerContainer->draw(*this->window);
 		this->shop->drawClickedTower();
 		this->shop->draw();
+		this->towerContainer->draw(*this->window);
 		this->window->draw(this->controls);
 	}
 	this->window->display();

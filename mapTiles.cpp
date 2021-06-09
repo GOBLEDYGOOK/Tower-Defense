@@ -60,11 +60,23 @@ bool MapTiles::isValid(sf::RenderWindow & window, sf::Vector2f mousePositionFloa
 	int y = mousePositionFloat.y / tileSize;
 
 	if (this->mapTiles[x + (y*this->width)] == 1) {
-		this->mapTiles[x + (y*this->width)] = 0;
+		this->mapTiles[x + (y*this->width)] = -1;
 		return true;								//Tower can be placed, return true
 	}
 	else return false;								//Tower can't be placed, return false
 	
+}
+
+bool MapTiles::isTower(sf::RenderWindow & window, sf::Vector2f mousePositionFloat)
+{
+	unsigned int tileSize = window.getSize().x / this->width;
+	int x = mousePositionFloat.x / tileSize;
+	int y = mousePositionFloat.y / tileSize;
+
+	if (this->mapTiles[x + (y*this->width)] == -1) {
+		return true;								
+	}
+	else return false;
 }
 
 int MapTiles::chooseDirection(sf::RenderWindow & window, sf::Vector2f enemyPos, int previousDirection)

@@ -3,6 +3,7 @@
 //private functions
 void TowerBasic::setBullet()
 {
+
 	this->bullet = new Bullet(this->getCenter());
 }
 
@@ -30,16 +31,6 @@ TowerBasic::~TowerBasic()
 //Accessors
 
 //Public functions
-void TowerBasic::upgrade()
-{
-	;
-}
-
-void TowerBasic::levelUp()
-{
-	;
-}
-
 void TowerBasic::shoot()
 {
 	
@@ -74,12 +65,14 @@ void TowerBasic::update()
 				if (this->target == nullptr) {
 					if (d <= (((*itr)->getEnemySprite().getGlobalBounds().width / 2) + this->getRange().getGlobalBounds().width / 2)) {
 						this->target = *itr;
+						break;
 					}
 				}
 				if (!this->bullet->getIsStarted() && this->target == (*itr) && (d > (((*itr)->getEnemySprite().getGlobalBounds().width / 2) + this->getRange().getGlobalBounds().width / 2))) {
 					this->target = nullptr;
 					this->bullet->reset();
 				}
+				if (this->target == (*itr))break;
 			}
 		}
 		
@@ -90,4 +83,5 @@ void TowerBasic::draw(sf::RenderWindow & window)
 {
 	window.draw(this->getSprite());
 	this->bullet->draw(window);
+	if (this->getIsClicked()) this->getDynamicText().draw(window);
 }

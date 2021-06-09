@@ -20,16 +20,14 @@ class TowerBasic :public Tower
 	
 public:
 	//Constructos /Destructors
-	TowerBasic(WaveContainer& waveContainer, int radius = 180, std::string path = "enemyTank.png", int cost = 100, int dmg = 10);
-	TowerBasic(int radius = 180, std::string path = "enemyTank.png", int cost = 100, int dmg = 10);
+	TowerBasic(WaveContainer& waveContainer, int radius = 180, std::string path = "enemyTank.png", int cost = 100, int dmg = 1);
+	TowerBasic(int radius = 180, std::string path = "enemyTank.png", int cost = 100, int dmg = 1);
 	virtual ~TowerBasic();
 	
 	//Accesors
 	
 	//Public functions
 	void setBullet();
-	virtual void upgrade();
-	virtual void levelUp();
 	virtual void shoot();
 	virtual void update();
 	virtual void draw(sf::RenderWindow& window);

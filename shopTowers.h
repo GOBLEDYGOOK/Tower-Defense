@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "towerBasic.h"
+#include "towerTripleShot.h"
 #include <iostream>
 #include <string>
 /*
@@ -22,6 +23,8 @@ class ShopTowers
 
 	//Private functions
 	void initVariables();
+	void initTowers();
+	void initLabels();
 public:
 	//Constructors /Destructors
 	ShopTowers();

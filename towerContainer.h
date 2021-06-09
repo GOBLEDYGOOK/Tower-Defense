@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "towerBasic.h"
+#include "towerTripleShot.h"
 #include <iostream>
 
 
@@ -21,6 +22,7 @@ public:
 	//Public functions
 	void add(sf::Vector2f mousePos, int i);
 	void draw(sf::RenderWindow &window);
+	void clickedTower(sf::Vector2f mousePos);
 	void update();
 	void nextWave();
 };
