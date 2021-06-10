@@ -10,43 +10,43 @@ void WaveContainer::initWaves()
 		toAdd = nullptr;
 		switch (wave) {
 		case 1:
-			toAdd = new Wave(0, 20, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(10, 0, 0, wave -1);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 2:
-			toAdd = new Wave(0, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(15, 0, 0, wave - 1);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 3:
-			toAdd = new Wave(0, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(10, 5, 0, wave - 1);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 4:
-			toAdd = new Wave(0, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(10, 10, 0, wave - 1);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 5:
-			toAdd = new Wave(0, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(10, 10, 3, wave - 1);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 6:
-			toAdd = new Wave(0, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(15, 5, 5, wave - 1);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 7:
-			toAdd = new Wave(0, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(0, 30, 0, wave - 1);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 8:
-			toAdd = new Wave(0, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(0, 10, 10, wave - 1);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 9:
-			toAdd = new Wave(0, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(10, 10, 5, wave - 1);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		case 10:
-			toAdd = new Wave(1, 0, 0);								//int numberOfBasic, int numberOfFast, int numberOfTank
+			toAdd = new Wave(5, 5, 10, wave - 1);								//int numberOfBasic, int numberOfFast, int numberOfTank
 			this->waveContainer.push_back(toAdd);
 			break;
 		}

@@ -29,9 +29,11 @@ public:
 	//Accessors
 	ShopTowers getShopTowers() const;
 	sf::Sprite getMapGridSprite()const;
+	int getTotalGold()const;
 
 	//Public functions
 	void addGold(int gold);
+	void removeGold(int gold);
 	void draw();
 	void drawClickedTower();
 	void shopClicked();

@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "towerBasic.h"
+#include "towerSniper.h"
 #include "towerTripleShot.h"
 #include <iostream>
 #include <string>
@@ -14,6 +15,7 @@ class ShopTowers
 	static const int numberOfTowers = 4;
 	int costs[numberOfTowers];
 	sf::Text label[numberOfTowers];
+	sf::Text name[numberOfTowers];
 	sf::Texture textureTowers[numberOfTowers];
 	sf::Font font;
 	sf::RectangleShape outlines[numberOfTowers];
@@ -25,6 +27,7 @@ class ShopTowers
 	void initVariables();
 	void initTowers();
 	void initLabels();
+	void initNames();
 public:
 	//Constructors /Destructors
 	ShopTowers();
@@ -35,6 +38,7 @@ public:
 	sf::RectangleShape getOutlines(size_t i) const;
 	int getCost(size_t i) const;
 	sf::Text getLabel(size_t i) const;
+	sf::Text getName(size_t i) const;
 	sf::Font& getFont();
 	Tower* getTower(size_t i) const;
 	int getIsClicked() const;

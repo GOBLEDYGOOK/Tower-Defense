@@ -10,7 +10,7 @@ class EnemyTank : public Enemy
 
 public:
 	//Constructos /Destructors
-	EnemyTank(std::string path = "enemyTank.png", int gold = 35, int hp = 100, int dmg = 10, float velocity = 1.0f);
+	EnemyTank(int modifier, std::string path = "enemyTank.png", int gold = 25, int hp = 150, int dmg = 18, float velocity = 1.0f);
 	virtual ~EnemyTank();
 
 	//Accesors

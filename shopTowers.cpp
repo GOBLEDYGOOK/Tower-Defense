@@ -5,6 +5,7 @@ ShopTowers::ShopTowers()
 	this->initVariables();
 	this->initTowers();
 	this->initLabels();
+	this->initNames();
 }
 
 //Destructor
@@ -45,6 +46,17 @@ void ShopTowers::initTowers()
 	this->outlines[1].setSize(sf::Vector2f(90.0f, 90.0f));
 	this->outlines[1].setOutlineColor(sf::Color(0, 0, 0, 255));
 	this->outlines[1].setPosition(1140.0f, 330.0f);
+
+	this->towers[2] = new TowerSniper();
+	this->costs[2] = this->towers[2]->getCost();
+	this->textureTowers[2] = this->towers[2]->getTexture();
+	this->spriteTowers[2].setPosition(1080.0f, 450.0f);
+	this->spriteTowers[2].setTexture(this->textureTowers[2]);
+	this->outlines[2].setFillColor(sf::Color(0, 0, 0, 0));
+	this->outlines[2].setOutlineThickness(2);
+	this->outlines[2].setSize(sf::Vector2f(90.0f, 90.0f));
+	this->outlines[2].setOutlineColor(sf::Color(0, 0, 0, 255));
+	this->outlines[2].setPosition(1080.0f, 450.0f);
 }
 
 void ShopTowers::initLabels()
@@ -64,9 +76,36 @@ void ShopTowers::initLabels()
 	this->label[1].setCharacterSize(12);
 	this->label[1].setString("$" + std::to_string(costs[1]));
 	this->label[1].setPosition(sf::Vector2f(this->spriteTowers[1].getGlobalBounds().left + this->label[1].getLocalBounds().width, this->spriteTowers[1].getGlobalBounds().top + 76));
+
+	this->label[2].setFont(this->font);
+	this->label[2].setFillColor(sf::Color::Yellow);
+	this->label[2].setOutlineColor(sf::Color::Black);
+	this->label[2].setOutlineThickness(1);
+	this->label[2].setCharacterSize(12);
+	this->label[2].setString("$" + std::to_string(costs[2]));
+	this->label[2].setPosition(sf::Vector2f(this->spriteTowers[2].getGlobalBounds().left + this->label[2].getLocalBounds().width, this->spriteTowers[2].getGlobalBounds().top + 76));
 }
 
+void ShopTowers::initNames()
+{
+	this->name[0].setFont(this->font);
+	this->name[0].setFillColor(sf::Color::Black);
+	this->name[0].setCharacterSize(15);
+	this->name[0].setString("Basic");
+	this->name[0].setPosition(sf::Vector2f(this->spriteTowers[0].getGlobalBounds().left + this->spriteTowers[0].getLocalBounds().width / 2 - this->name[0].getLocalBounds().width / 2, this->spriteTowers[0].getGlobalBounds().top - 20));
 
+	this->name[1].setFont(this->font);
+	this->name[1].setFillColor(sf::Color::Black);
+	this->name[1].setCharacterSize(15);
+	this->name[1].setString("Triple Shot");
+	this->name[1].setPosition(sf::Vector2f(this->spriteTowers[1].getGlobalBounds().left + this->spriteTowers[1].getLocalBounds().width / 2 - this->name[1].getLocalBounds().width / 2, this->spriteTowers[1].getGlobalBounds().top - 20));
+
+	this->name[2].setFont(this->font);
+	this->name[2].setFillColor(sf::Color::Black);
+	this->name[2].setCharacterSize(15);
+	this->name[2].setString("Sniper");
+	this->name[2].setPosition(sf::Vector2f(this->spriteTowers[2].getGlobalBounds().left + this->spriteTowers[2].getLocalBounds().width / 2 - this->name[2].getLocalBounds().width / 2, this->spriteTowers[2].getGlobalBounds().top - 20));
+}
 
 sf::Sprite ShopTowers::getSpriteTower(size_t i) const
 {
@@ -86,6 +125,11 @@ int ShopTowers::getCost(size_t i) const
 sf::Text ShopTowers::getLabel(size_t i) const
 {
 	return this->label[i];
+}
+
+sf::Text ShopTowers::getName(size_t i) const
+{
+	return this->name[i];
 }
 
 sf::Font& ShopTowers::getFont()

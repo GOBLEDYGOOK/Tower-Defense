@@ -24,11 +24,11 @@ class Enemy{
 	HpBar *hpBar;
 
 	//Private functions
-	void initVariables(std::string path, int gold, int hp, int dmg, float velocity);
+	void initVariables(int modifier, std::string path, int gold, int hp, int dmg, float velocity);
 public:
 
 	//Consturctors /Destructors
-	Enemy(std::string path, int gold, int hp, int dmg, float velocity);
+	Enemy(int modifier, std::string path, int gold, int hp, int dmg, float velocity);
 	virtual ~Enemy();
 
 	//Accessors

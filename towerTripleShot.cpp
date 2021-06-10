@@ -53,8 +53,6 @@ void TowerTripleShot::shoot()
 			}
 			else if (this->isReady == 90) {
 				this->bullet[i]->shoot(this->target[i]->getCenter());
-				
-				
 			}
 			if (this->bullet[i]->getIsStarted()) {
 				this->bullet[i]->update(this->target[i]->getCenter(), *this->target[i], this->getDmg());
@@ -106,5 +104,15 @@ void TowerTripleShot::draw(sf::RenderWindow & window)
 	for (size_t i = 0; i < numberOfTargets; i++) {
 		this->bullet[i]->draw(window);
 	}
-	if (this->getIsClicked()) this->getDynamicText().draw(window);;
+}
+
+void TowerTripleShot::drawClicked(sf::RenderWindow & window)
+{
+	if (this->getIsClicked()) {
+		window.draw(this->getRange());
+		this->getDynamicText().draw(window);
+		if (this->getLevel() != this->getMaxLevel()) {
+			this->getUpgradeButton().draw(window);
+		}
+	}
 }

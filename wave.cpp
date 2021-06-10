@@ -1,7 +1,7 @@
 #include "wave.h"
 
 //Private functions
-void Wave::initEnemyContainer(int numberOfBasic, int numberOfFast, int numberOfTank) // totalNumberOfEnemies = numberOfBasic + numberOfFast + numberOfTank
+void Wave::initEnemyContainer(int numberOfBasic, int numberOfFast, int numberOfTank, int modifier) // totalNumberOfEnemies = numberOfBasic + numberOfFast + numberOfTank
 {
 	srand(time(NULL));
 	int i;
@@ -15,21 +15,21 @@ void Wave::initEnemyContainer(int numberOfBasic, int numberOfFast, int numberOfT
 			if (numberOfBasic != 0) {
 				
 				numberOfBasic--;
-				toAdd = new EnemyBasic();
+				toAdd = new EnemyBasic(modifier);
 			}
 			break;
 		case 1:
 			if (numberOfFast != 0) {
 				
 				numberOfFast--;
-				toAdd = new EnemyFast();
+				toAdd = new EnemyFast(modifier);
 			}
 			break;
 		case 2:
 			if (numberOfTank != 0) {
 				
 				numberOfTank--;
-				toAdd = new EnemyTank();
+				toAdd = new EnemyTank(modifier);
 			}
 			break;
 		}
@@ -42,9 +42,9 @@ void Wave::initEnemyContainer(int numberOfBasic, int numberOfFast, int numberOfT
 }
 
 //Constructor
-Wave::Wave(int numberOfBasic, int numberOfFast, int numberOfTank)  // totalNumberOfEnemies = numberOfBasic + numberOfFast + numberOfTank
+Wave::Wave(int numberOfBasic, int numberOfFast, int numberOfTank, int modifier)  // totalNumberOfEnemies = numberOfBasic + numberOfFast + numberOfTank
 {
-		this->initEnemyContainer(numberOfBasic, numberOfFast, numberOfTank);
+		this->initEnemyContainer(numberOfBasic, numberOfFast, numberOfTank, modifier);
 }
 
 //Destructor

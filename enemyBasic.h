@@ -8,7 +8,7 @@ class EnemyBasic :public Enemy
 
 public:
 	//Constructos /Destructors
-	EnemyBasic(std::string path = "enemyBasic.png", int gold = 20, int hp = 50, int dmg = 6, float velocity = 1.0f);
+	EnemyBasic(int modifier, std::string path = "enemyBasic.png", int gold = 15, int hp = 50, int dmg = 13, float velocity = 1.0f);
 	virtual ~EnemyBasic();
 
 	//Accesors

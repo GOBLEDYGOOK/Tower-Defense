@@ -61,9 +61,10 @@ void Game::initNewGame()
 	this->initTowerContainer();
 	this->initShop();
 	this->initBase();
+	this->initText();
 }
 
-void Game::initTextControls()
+void Game::initText()
 {
 	this->font.loadFromFile("arial.ttf");
 	this->controls.setFont(this->font);
@@ -73,6 +74,14 @@ void Game::initTextControls()
 	this->controls.setCharacterSize(17);
 	this->controls.setString("Controls: \n Enter - start wave \n Space - pause/unpause \n 1 - 1x speed \n 2 - 2x speed \n 3 - 3x speed");
 	this->controls.setPosition(sf::Vector2f(1010.0f, 650.0f));
+
+	this->wave.setFont(this->font);
+	this->wave.setFillColor(sf::Color::White);
+	this->wave.setOutlineColor(sf::Color::Black);
+	this->wave.setOutlineThickness(3);
+	this->wave.setCharacterSize(30);
+	this->wave.setPosition(sf::Vector2f(1180.0f, 20.0f));
+	this->wave.setString(std::to_string(this->waveContainer->getCurrentWave()) + "/" + std::to_string(this->waveContainer->getMaxNumberOfWaves()));
 }
 
 //Constructor
@@ -86,7 +95,7 @@ Game::Game()
 	this->initTowerContainer();
 	this->initShop();
 	this->initBase();
-	this->initTextControls();
+	this->initText();
 }
 
 //Destructor
@@ -149,17 +158,12 @@ void Game::pollEventsGame()
 				}
 				else if (this->shop->isTower(*this->window, this->mousePositionFloat)) {
 					this->towerContainer->clickedTower(this->mousePositionFloat);
+					this->towerContainer->setCostUpgrade();
 				}
+				this->shop->removeGold(this->towerContainer->clickedUpgrade(this->mousePositionFloat, this->shop->getTotalGold()));
 				this->shop->shopClicked();
 
 				
-			}
-			break;
-		case sf::Event::MouseMoved:
-
-			if ((mouse.getPosition(*this->window).x > 90 && mouse.getPosition(*this->window).x < 180) && (mouse.getPosition(*this->window).y > 90 && mouse.getPosition(*this->window).y < 180)) {
-				tmp = true;
-
 			}
 			break;
 		case sf::Event::KeyPressed:
@@ -171,6 +175,7 @@ void Game::pollEventsGame()
 				if (!this->waveContainer->empty()) {
 					this->towerContainer->nextWave();
 					this->waveContainer->startNextWave();
+					this->wave.setString(std::to_string(this->waveContainer->getCurrentWave()) + "/" + std::to_string(this->waveContainer->getMaxNumberOfWaves()));
 				}
 			}
 			if (ev.key.code == sf::Keyboard::Num1) {					//Press 1 to 1x speed the game
@@ -271,6 +276,10 @@ void Game::clear()
 	delete this->base;
 }
 
+void Game::drawWave()
+{
+	this->window->draw(this->wave);
+}
 
 void Game::update()
 {
@@ -284,6 +293,7 @@ void Game::update()
 			this->towerContainer->update();
 			this->base->update();
 		}
+		this->gameOver();
 	}
 	
 }
@@ -302,7 +312,7 @@ void Game::render()
 		}
 	}
 	else {
-		this->gameOver();
+		
 		this->map->draw(*this->window);
 		this->waveContainer->draw(*this->window);
 		this->base->draw(*this->window);
@@ -310,6 +320,7 @@ void Game::render()
 		this->shop->draw();
 		this->towerContainer->draw(*this->window);
 		this->window->draw(this->controls);
+		this->drawWave();
 	}
 	this->window->display();
 }

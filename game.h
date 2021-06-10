@@ -28,10 +28,10 @@ class Game
 	sf::VideoMode videoMode;
 	sf::Event ev;
 	sf::Text controls;
+	sf::Text wave;
 	sf::Font font;
 	bool isGamePaused;
 	bool tmp;
-	
 
 	//Private functions
 	void initVariables();
@@ -43,7 +43,8 @@ class Game
 	void initShop();
 	void initBase();
 	void initNewGame();
-	void initTextControls();
+	void initText();
+
 public:
 	//Consturctors /Destructors
 	Game();
@@ -56,6 +57,7 @@ public:
 	void pollEventsMenu();
 	void pollEventsGame();
 	void keyPressedMenu();
+	void drawWave();
 	void update();
 	void render();
 	void gameOver();

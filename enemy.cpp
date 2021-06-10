@@ -1,11 +1,11 @@
 #include "enemy.h"
 
 //Private functions
-void Enemy::initVariables(std::string path, int gold, int hp, int dmg, float velocity)
+void Enemy::initVariables(int modifier, std::string path, int gold, int hp, int dmg, float velocity)
 {
 	this->isDead = false;
 	this->direction = 0;
-	this->hp = hp;
+	this->hp = hp + modifier * 20;
 	this->gold = gold;
 	this->damage = dmg;
 	this->isStarted = false;
@@ -19,9 +19,9 @@ void Enemy::initVariables(std::string path, int gold, int hp, int dmg, float vel
 }
 
 //Consturctors /Destructors
-Enemy::Enemy(std::string path, int gold, int hp, int dmg, float velocity)
+Enemy::Enemy(int modifier, std::string path, int gold, int hp, int dmg, float velocity)
 {
-	this->initVariables(path, gold, hp, dmg, velocity);
+	this->initVariables(modifier, path, gold, hp, dmg, velocity);
 }
 
 Enemy::~Enemy()

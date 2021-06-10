@@ -81,7 +81,19 @@ void TowerBasic::update()
 
 void TowerBasic::draw(sf::RenderWindow & window)
 {
+	
 	window.draw(this->getSprite());
 	this->bullet->draw(window);
-	if (this->getIsClicked()) this->getDynamicText().draw(window);
+	
+}
+
+void TowerBasic::drawClicked(sf::RenderWindow & window)
+{
+	if (this->getIsClicked()) {
+		window.draw(this->getRange());
+		this->getDynamicText().draw(window);
+		if (this->getLevel() != this->getMaxLevel()) {
+			this->getUpgradeButton().draw(window);
+		}
+	}
 }

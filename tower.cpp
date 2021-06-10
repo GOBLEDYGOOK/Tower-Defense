@@ -13,6 +13,8 @@ Tower::Tower(WaveContainer& waveContainer, int radius, std::string path, int cos
 	tmp[1] = std::to_string(this->getDmg());
 	tmp[2] = std::to_string(int(this->range.getRadius()));
 	this->dynamicText.setText(tmp);
+	this->upgradeCost();
+	this->upgradeButton.setCost(this->cost);
 }
 
 Tower::Tower(int radius, std::string path, int cost, int dmg)
@@ -26,7 +28,9 @@ Tower::~Tower()
 {
 	;
 
-}void Tower::initVariables(int cost, int dmg)
+}
+//Private functions
+void Tower::initVariables(int cost, int dmg)
 {
 	this->level = 0;
 	this->isClicked = false;
@@ -53,6 +57,11 @@ void Tower::initRange(int radius)
 Wave* Tower::getWave() const
 {
 	return this->wave;
+}
+
+UpgradeButton Tower::getUpgradeButton() const
+{
+	return this->upgradeButton;
 }
 
 
@@ -111,6 +120,11 @@ sf::Vector2f Tower::getCenter() const
 	return sf::Vector2f(this->towerSprite.getPosition().x + 45, this->towerSprite.getPosition().y + 45);
 }
 
+void Tower::upgradeCost()
+{
+	this->cost += 10;
+}
+
 //public functions
 void Tower::changeIsClicked()
 {
@@ -123,13 +137,15 @@ void Tower::setPosition(sf::Vector2f position)
 	this->towerSprite.setPosition(position);
 	this->range.setPosition(this->towerSprite.getPosition().x - this->range.getRadius() + 45, this->towerSprite.getPosition().y - this->range.getRadius() + 45);
 	this->dynamicText.setPosition(position);
+	this->upgradeButton.setPosition(position);
 }
 
 void Tower::upgrade()
 {
-	this->range.setRadius(this->range.getRadius() + 20);
+	this->upgradeCost();
+	this->upgradeButton.setCost(this->cost);
+	this->range.setRadius(this->range.getRadius() + 0.1*this->range.getRadius() +5);
 	this->dmg = this->dmg + 0.4*this->dmg + 3;
-	this->cost += 10;
 	this->setPosition(this->towerSprite.getPosition());
 }
 
@@ -138,6 +154,11 @@ void Tower::levelUp()
 	if (this->level != this->maxLevel) {
 		this->level++;
 		this->upgrade();
+		std::string* tmp = new std::string[3];
+		tmp[0] = std::to_string(this->getLevel() + 1);
+		tmp[1] = std::to_string(this->getDmg());
+		tmp[2] = std::to_string(int(this->range.getRadius()));
+		this->dynamicText.setText(tmp);
 	}
 }
 

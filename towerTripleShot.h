@@ -16,8 +16,8 @@ class TowerTripleShot :public Tower
 
 public:
 	//Constructos /Destructors
-	TowerTripleShot(WaveContainer& waveContainer, int radius = 140, std::string path = "enemyFast.png", int cost = 125, int dmg = 4);
-	TowerTripleShot(int radius = 140, std::string path = "enemyFast.png", int cost = 125, int dmg = 4);
+	TowerTripleShot(WaveContainer& waveContainer, int radius = 140, std::string path = "towerTripleShot.png", int cost = 125, int dmg = 14);
+	TowerTripleShot(int radius = 140, std::string path = "towerTripleShot.png", int cost = 125, int dmg = 14);
 	virtual ~TowerTripleShot();
 
 	//Accesors
@@ -28,5 +28,6 @@ public:
 	virtual void shoot();
 	virtual void update();
 	virtual void draw(sf::RenderWindow& window);
+	virtual void drawClicked(sf::RenderWindow& window);
 };
 

@@ -23,6 +23,7 @@ public:
 
 	//Public functions
 	bool isValid(sf::RenderWindow& window, sf::Vector2f mousePositionFloat);
+	bool isTower(sf::RenderWindow& window, sf::Vector2f mousePositionFloat);
 	int chooseDirection(sf::RenderWindow& window, sf::Vector2f enemyPos, int previousDirection);
 };
 

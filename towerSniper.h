@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 #include "tower.h"
 #include "bullet.h"
 #include <string>
@@ -7,7 +8,7 @@
 	Class of basic tower
 */
 
-class TowerBasic :public Tower
+class TowerSniper :public Tower
 {
 	//Private variables
 	int isReady;
@@ -17,15 +18,15 @@ class TowerBasic :public Tower
 	Bullet* bullet;
 	Enemy *target;
 	//Private functions
-	
+
 public:
 	//Constructos /Destructors
-	TowerBasic(WaveContainer& waveContainer, int radius = 180, std::string path = "towerBasic.png", int cost = 100, int dmg = 25);
-	TowerBasic(int radius = 180, std::string path = "towerBasic.png", int cost = 100, int dmg = 25);
-	virtual ~TowerBasic();
-	
+	TowerSniper(WaveContainer& waveContainer, int radius = 330, std::string path = "towerSniper.png", int cost = 150, int dmg = 50);
+	TowerSniper(int radius = 330, std::string path = "towerSniper.png", int cost = 150, int dmg = 50);
+	virtual ~TowerSniper();
+
 	//Accesors
-	
+
 	//Public functions
 	void setBullet();
 	virtual void shoot();
@@ -33,4 +34,5 @@ public:
 	virtual void draw(sf::RenderWindow& window);
 	virtual void drawClicked(sf::RenderWindow& window);
 };
+
 

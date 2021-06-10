@@ -1,6 +1,7 @@
 #pragma once
 #include "waveContainer.h"
 #include "dynamicText.h"
+#include "upgradeButton.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
@@ -18,6 +19,7 @@ class Tower{
 	
 	WaveContainer* waveContainer;
 	bool isClicked;
+	UpgradeButton upgradeButton;
 	Wave* wave;
 	sf::Sprite towerSprite;
 	sf::Texture towerTexture;
@@ -41,6 +43,7 @@ public:
 
 	//Accessors
 	Wave* getWave() const;
+	UpgradeButton getUpgradeButton() const;
 	DynamicText getDynamicText() const;
 	virtual int getMaxLevel() const;
 	virtual int getDmg() const;
@@ -54,6 +57,7 @@ public:
 	WaveContainer* getWaveContainer() const;
 
 	//public functions
+	void upgradeCost();
 	virtual void changeIsClicked();
 	virtual void setPosition(sf::Vector2f position);
 	virtual void shoot() = 0;
@@ -62,6 +66,7 @@ public:
 	virtual void upgrade();
 	virtual void setBullet() = 0;
 	virtual void draw(sf::RenderWindow & window) = 0;
+	virtual void drawClicked(sf::RenderWindow & window) = 0;
 	virtual void nextWave();
 };
 
