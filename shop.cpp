@@ -25,7 +25,11 @@ void Shop::initVariables()
 	this->window = nullptr;
 	this->towerContainer = nullptr;
 	this->totalGold = 100;
-	this->mapGridTexture.loadFromFile("mapGrid1.png");
+	if (!this->mapGridTexture.loadFromFile("mapGrid1.png"))
+	{
+		MessageBox(0, "Error! mapGrid1.png doesnt exist", 0, 0);
+		exit(0);
+	}
 	this->mapGrid.setTexture(this->mapGridTexture);
 	
 }
@@ -145,6 +149,11 @@ void Shop::buy()
 		this->towerContainer->add(mousePositionFloat, getIsClicked());				//Add to container of towers
 		changeIsClicked(-1);
 	}
+}
+
+void Shop::reset()
+{
+	this->changeIsClicked(-1);
 }
 
 bool Shop::isTower(sf::RenderWindow & window, sf::Vector2f mousePositionFloat)

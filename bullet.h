@@ -3,6 +3,7 @@
 #include "enemyBasic.h"
 #include "enemyTank.h"
 #include "enemyFast.h"
+#include "windows.h"
 
 class Bullet
 {
@@ -12,7 +13,6 @@ class Bullet
 	sf::Vector2f towerCenter;
 	sf::Vector2f enemyCenter;
 	sf::Vector2f direction;
-	sf::Clock clock;
 	bool isStarted;
 
 	//Private functions

@@ -11,16 +11,18 @@ ShopTowers::ShopTowers()
 //Destructor
 ShopTowers::~ShopTowers()
 {
-	
+	;
 }
 
 //Private functions
 void ShopTowers::initVariables()
 {
-	this->font.loadFromFile("arial.ttf");
+	if (!this->font.loadFromFile("arial.ttf"))
+	{
+		MessageBox(0, "Error! arial.ttf doesnt exist", 0, 0);
+		exit(0);
+	}
 	this->isClicked = -1;
-	
-	
 }
 
 void ShopTowers::initTowers()

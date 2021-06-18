@@ -20,7 +20,12 @@ Map::~Map()
 //Private functions
 void Map::initVariables(sf::VideoMode videoMode)
 {
-	this->mapTexture.loadFromFile("map.png");
+	
+	if (!this->mapTexture.loadFromFile("map.png"))
+	{
+		MessageBox(0, "Error! map.png doesnt exist", 0, 0);
+		exit(0);
+	}
 	this->map.setTexture(this->mapTexture);
 	this->videoMode = videoMode;
 	

@@ -49,7 +49,7 @@ Wave::Wave(int numberOfBasic, int numberOfFast, int numberOfTank, int modifier) 
 
 //Destructor
 Wave::~Wave() {
-
+	this->enemyContainer.clear();
 }
 
 //Public functions

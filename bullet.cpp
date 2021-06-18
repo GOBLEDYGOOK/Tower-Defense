@@ -9,7 +9,11 @@ sf::Vector2f normalize(sf::Vector2f target, sf::Vector2f current)
 //Private functions
 void Bullet::initBullet()
 {
-	this->textureBullet.loadFromFile("bullet.png");
+	if (!this->textureBullet.loadFromFile("bullet.png"))
+	{
+		MessageBox(0, "Error! bullet.png doesn't exist", 0, 0);
+		exit(0);
+	}
 	this->spriteBullet.setTexture(this->textureBullet);
 	this->spriteBullet.setPosition(this->towerCenter);
 }

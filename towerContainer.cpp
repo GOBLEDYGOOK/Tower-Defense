@@ -14,10 +14,12 @@ TowerContainer::TowerContainer()
 //Destructor
 TowerContainer::~TowerContainer()
 {
+	
+	this->towerContainer.clear();
 }
 
 //Public functions
-void TowerContainer::add(sf::Vector2f mousePos, int i)
+void TowerContainer::add(sf::Vector2f mousePos, int choice)
 {
 	int x = mousePos.x / 90;
 	int y = mousePos.y / 90;
@@ -25,7 +27,7 @@ void TowerContainer::add(sf::Vector2f mousePos, int i)
 	x *= 90;
 	y *= 90;
 
-	switch (i) {
+	switch (choice) {
 	case 0: {
 		tmp = new TowerBasic(*this->waveContainer);
 		tmp->setPosition(sf::Vector2f(x, y));
@@ -118,5 +120,15 @@ void TowerContainer::nextWave()
 {
 	for (auto itr = this->towerContainer.begin(); itr != this->towerContainer.end(); itr++) {
 		(*itr)->nextWave();
+	}
+}
+
+void TowerContainer::reset()
+{
+	for (auto itr = this->towerContainer.begin(); itr != this->towerContainer.end(); itr++) {
+		if ((*itr)->getIsClicked()) {
+			(*itr)->changeIsClicked();
+		return;
+		}
 	}
 }

@@ -26,8 +26,7 @@ Tower::Tower(int radius, std::string path, int cost, int dmg)
 }
 Tower::~Tower()
 {
-	;
-
+	delete this->wave;
 }
 //Private functions
 void Tower::initVariables(int cost, int dmg)
@@ -40,7 +39,12 @@ void Tower::initVariables(int cost, int dmg)
 
 void Tower::initTexture(std::string path)
 {
-	this->towerTexture.loadFromFile(path);
+	
+	if (!this->towerTexture.loadFromFile(path))
+	{
+		MessageBox(0, "Error! File doesnt exist (Tower class)", 0, 0);
+		exit(0);
+	}
 	this->towerSprite.setTexture(this->towerTexture);
 
 }

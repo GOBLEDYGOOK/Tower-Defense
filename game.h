@@ -18,7 +18,7 @@ class Game
 	//Private variables
 	sf::RenderWindow* window;
 	StartMenu* startMenu;
-	EndMenu* endMenu;
+	EndingMenu* endMenu;
 	Map* map;
 	Shop *shop;
 	Base *base;

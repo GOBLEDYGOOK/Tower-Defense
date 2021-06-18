@@ -17,6 +17,7 @@ Base::Base()
 //Destructor
 Base::~Base()
 {
+	delete this->hpBar;
 }
 
 int Base::getHp() const

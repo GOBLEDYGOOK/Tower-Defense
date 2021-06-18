@@ -23,7 +23,8 @@ TowerBasic::TowerBasic(int radius, std::string path, int cost, int dmg) : Tower(
 //Destructor
 TowerBasic::~TowerBasic()
 {
-	;
+	delete this->bullet;
+	delete this->target;
 }
 
 //Private functions

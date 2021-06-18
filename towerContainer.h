@@ -28,5 +28,6 @@ public:
 	void update();
 	void setCostUpgrade();
 	void nextWave();
+	void reset();
 };
 

@@ -1,6 +1,7 @@
 #pragma once
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "windows.h"
 
 #define MAX_NUMBER_OF_OPTIONS 2
 
@@ -8,7 +9,7 @@
 	Class of the ending menu
 */
 
-class EndMenu {
+class EndingMenu {
 	//Private variables
 	int selectedOption;
 	sf::VideoMode videoMode;
@@ -20,8 +21,8 @@ class EndMenu {
 	void initVariables(sf::VideoMode videoMode, bool isWin);
 public:
 	//Constructors /Destructors
-	EndMenu(sf::VideoMode videoMode, bool isWin);
-	virtual ~EndMenu();
+	EndingMenu(sf::VideoMode videoMode, bool isWin);
+	virtual ~EndingMenu();
 
 	//Accessors
 	int getSelectedOption();

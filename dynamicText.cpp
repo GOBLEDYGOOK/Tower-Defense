@@ -3,7 +3,12 @@
 //Private functions
 void DynamicText::initVariables()
 {
-	this->font.loadFromFile("arial.ttf");
+	
+	if (!this->font.loadFromFile("arial.ttf"))
+	{
+		MessageBox(0, "Error! arial.ttf doesnt exist", 0, 0);
+		exit(0);
+	}
 	this->text.setFont(this->font);
 	this->text.setCharacterSize(15);
 	this->text.setFillColor(sf::Color::Black);

@@ -11,7 +11,7 @@ void TowerTripleShot::setBullet()
 
 bool TowerTripleShot::differentTargets(Enemy * enemy)
 {
-	if (this->target[0] == enemy || this->target[0] == enemy || this->target[1] == enemy) return false;
+	if (this->target[0] == enemy || this->target[1] == enemy || this->target[2] == enemy) return false;
 	return true;
 }
 
@@ -34,14 +34,13 @@ TowerTripleShot::TowerTripleShot(int radius, std::string path, int cost, int dmg
 //Destructor
 TowerTripleShot::~TowerTripleShot()
 {
-	;
+	delete []this->bullet;
+	delete []this->target;
 }
 
 //Accessors
 
 //Public functions
-
-
 void TowerTripleShot::shoot()
 {
 	for (size_t i = 0; i < numberOfTargets; i++) {

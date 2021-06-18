@@ -23,7 +23,8 @@ TowerSniper::TowerSniper(int radius, std::string path, int cost, int dmg) : Towe
 //Destructor
 TowerSniper::~TowerSniper()
 {
-	;
+	delete this->bullet;
+	delete this->target;
 }
 
 //Private functions

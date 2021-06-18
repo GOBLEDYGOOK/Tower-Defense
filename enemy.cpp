@@ -10,7 +10,11 @@ void Enemy::initVariables(int modifier, std::string path, int gold, int hp, int 
 	this->damage = dmg;
 	this->isStarted = false;
 	this->velocity = velocity;
-	this->enemyTexture.loadFromFile(path);
+	if (!this->enemyTexture.loadFromFile(path))
+	{
+		MessageBox(0,"Error! File doesnt exist (Enemy class)" , 0, 0);
+		exit(0);
+	}
 	this->enemySprite.setTexture(this->enemyTexture);
 	this->enemySprite.setPosition(270.0f, -90.0f);
 	this->hpBar = new HpBar(this->hp);

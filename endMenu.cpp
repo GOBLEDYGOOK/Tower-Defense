@@ -1,21 +1,23 @@
 #include "endMenu.h"
 //Constructors /Destructors
-EndMenu::EndMenu(sf::VideoMode videoMode, bool isWin)
+EndingMenu::EndingMenu(sf::VideoMode videoMode, bool isWin)
 {
 	this->initVariables(videoMode, isWin);
 }
 
-EndMenu::~EndMenu()
+EndingMenu::~EndingMenu()
 {
 }
 
 
 
 //Private functions
-void EndMenu::initVariables(sf::VideoMode videoMode, bool isWin)
+void EndingMenu::initVariables(sf::VideoMode videoMode, bool isWin)
 {
-	if (!this->font.loadFromFile("arial.ttf")) {
-		std::exit(0);	//error
+	if (!this->font.loadFromFile("arial.ttf"))
+	{
+		MessageBox(0, "Error! arial.ttf doesnt exist", 0, 0);
+		exit(0);
 	}
 
 	this->videoMode = videoMode;
@@ -25,9 +27,9 @@ void EndMenu::initVariables(sf::VideoMode videoMode, bool isWin)
 	this->title.setCharacterSize(60u);
 	this->title.setFillColor(sf::Color::Green);
 	if (isWin == true) {
-		this->title.setString("You won");
+		this->title.setString("Victory!");
 	}
-	else this->title.setString("You lost");
+	else this->title.setString("Defeat!");
 	this->title.setPosition(sf::Vector2f(this->videoMode.width / 2 - this->title.getGlobalBounds().width / 2, this->videoMode.height * 1 / 4));
 
 	this->menu[0].setFont(font);
@@ -46,13 +48,13 @@ void EndMenu::initVariables(sf::VideoMode videoMode, bool isWin)
 }
 
 //Accessors
-int EndMenu::getSelectedOption()
+int EndingMenu::getSelectedOption()
 {
 	return this->selectedOption;
 }
 
 //Public functions
-void EndMenu::draw(sf::RenderWindow & window)
+void EndingMenu::draw(sf::RenderWindow & window)
 {
 	window.draw(this->title);
 	for (size_t i = 0; i < MAX_NUMBER_OF_OPTIONS; i++) {
@@ -60,7 +62,7 @@ void EndMenu::draw(sf::RenderWindow & window)
 	}
 }
 
-void EndMenu::moveUp()
+void EndingMenu::moveUp()
 {
 	if (this->selectedOption - 1 >= 0) {
 		this->menu[this->selectedOption].setFillColor(sf::Color::White);
@@ -74,7 +76,7 @@ void EndMenu::moveUp()
 	}
 }
 
-void EndMenu::moveDown()
+void EndingMenu::moveDown()
 {
 	if (this->selectedOption + 1 < MAX_NUMBER_OF_OPTIONS) {
 		this->menu[this->selectedOption].setFillColor(sf::Color::White);

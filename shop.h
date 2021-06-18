@@ -38,6 +38,7 @@ public:
 	void drawClickedTower();
 	void shopClicked();
 	void buy();
+	void reset();
 	bool isTower(sf::RenderWindow & window, sf::Vector2f mousePositionFloat);
 };
 

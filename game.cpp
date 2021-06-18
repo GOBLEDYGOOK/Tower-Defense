@@ -66,13 +66,17 @@ void Game::initNewGame()
 
 void Game::initText()
 {
-	this->font.loadFromFile("arial.ttf");
+	if (!this->font.loadFromFile("arial.ttf"))
+	{
+		MessageBox(0, "Error! arial.ttf doesnt exist", 0, 0);
+		exit(0);
+	}
 	this->controls.setFont(this->font);
 	this->controls.setFillColor(sf::Color::White);
 	this->controls.setOutlineColor(sf::Color::Black);
 	this->controls.setOutlineThickness(2);
 	this->controls.setCharacterSize(17);
-	this->controls.setString("Controls: \n Enter - start wave \n Space - pause/unpause \n 1 - 1x speed \n 2 - 2x speed \n 3 - 3x speed");
+	this->controls.setString("Key Bindings: \n Enter - start wave \n Space - pause/unpause \n 1 - 1x speed \n 2 - 2x speed \n 3 - 3x speed");
 	this->controls.setPosition(sf::Vector2f(1010.0f, 650.0f));
 
 	this->wave.setFont(this->font);
@@ -162,11 +166,16 @@ void Game::pollEventsGame()
 				}
 				this->shop->removeGold(this->towerContainer->clickedUpgrade(this->mousePositionFloat, this->shop->getTotalGold()));
 				this->shop->shopClicked();
-
-				
+			}
+			if (this->ev.key.code == sf::Mouse::Right) {
+				if (this->shop->getIsClicked() != -1) {
+					this->shop->reset();
+				}
+				else this->towerContainer->reset();
 			}
 			break;
 		case sf::Event::KeyPressed:
+			if (ev.key.code == sf::Keyboard::P) this->shop->addGold(100);
 			if (ev.key.code == sf::Keyboard::Space) {					//Press space to pause/unpause the game
 			if (!this->isGamePaused) this->isGamePaused = true;
 			else this->isGamePaused = false;
@@ -252,10 +261,10 @@ void Game::keyPressedMenu()
 void Game::gameOver()
 {
 	if (this->waveContainer->empty()) {
-		this->endMenu = new EndMenu(this->videoMode, 1);
+		this->endMenu = new EndingMenu(this->videoMode, 1);
 	}
 	else if (this->base->getHp() <= 0) {
-		this->endMenu = new EndMenu(this->videoMode, 0);
+		this->endMenu = new EndingMenu(this->videoMode, 0);
 	}
 
 }
@@ -264,7 +273,7 @@ void Game::newGame()
 {
 	this->clear();
 	this->initNewGame();
-	this->window->setFramerateLimit(60);
+	this->window->setFramerateLimit(75);
 }
 
 void Game::clear()
@@ -302,6 +311,7 @@ void Game::render()
 {
 	this->window->clear();
 	this->mousePositionFloat = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*this->window));
+
 	//Draw game objects
 	if (this->startMenu != nullptr || this->endMenu != nullptr) {
 		if (this->startMenu != nullptr) {
@@ -312,7 +322,6 @@ void Game::render()
 		}
 	}
 	else {
-		
 		this->map->draw(*this->window);
 		this->waveContainer->draw(*this->window);
 		this->base->draw(*this->window);

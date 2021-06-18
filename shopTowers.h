@@ -5,6 +5,7 @@
 #include "towerTripleShot.h"
 #include <iostream>
 #include <string>
+#include "windows.h"
 /*
 	class 
 */
@@ -12,7 +13,7 @@
 class ShopTowers
 {
 	//Private variables
-	static const int numberOfTowers = 4;
+	static const int numberOfTowers = 3;
 	int costs[numberOfTowers];
 	sf::Text label[numberOfTowers];
 	sf::Text name[numberOfTowers];

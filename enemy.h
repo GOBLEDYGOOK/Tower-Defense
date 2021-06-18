@@ -5,6 +5,7 @@
 #include <SFML/Audio.hpp>
 #include "hpBar.h"
 #include "mapTiles.h"
+#include "windows.h"
 
 /*
 	Class of enemy
